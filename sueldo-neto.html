@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Sueldo Neto a Bruto (España 2026)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50:  '#eef7ff', 100: '#d9edff', 200: '#bce0ff',
+                            300: '#8ecdff', 400: '#59b0ff', 500: '#338dff',
+                            600: '#1a6df5', 700: '#1357e1', 800: '#1646b6',
+                            900: '#183e8f', 950: '#132757',
+                        }
+                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        #mobile-menu {
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            max-height: 0; opacity: 0; overflow: hidden;
+        }
+        #mobile-menu.open { max-height: 300px; opacity: 1; }
+        .btn-pulse { animation: subtle-pulse 2.5s infinite; }
+        @keyframes subtle-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(26, 109, 245, 0.45); }
+            50%      { box-shadow: 0 0 0 8px rgba(26, 109, 245, 0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <!-- ========== HEADER + NAV (Igual que el Paro) ========== -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-30">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center shadow-sm">
+                        <svg class="w-4.5 h-4.5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21" /></svg>
+                    </div>
+                    <span class="text-lg font-bold text-gray-900 hidden sm:inline">Portal Laboral</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-700 hover:bg-brand-50 transition">Finiquito</a>
+                    <a href="sueldo-neto.html" class="px-3 py-2 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition" aria-current="page">Sueldo Neto</a>
+                    <a href="paro.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-700 hover:bg-brand-50 transition">Calculadora de Paro</a>
+                </nav>
+
+                <!-- Mobile hamburger -->
+                <button id="menu-toggle" class="md:hidden p-2 text-gray-500 hover:bg-gray-100 rounded-lg">
+                    <svg id="icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+                    <svg id="icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden pb-3">
+                <nav class="flex flex-col gap-1">
+                    <a href="index.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">Calculadora de Finiquito</a>
+                    <a href="sueldo-neto.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200">Sueldo Bruto a Neto</a>
+                    <a href="paro.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">Calculadora de Paro</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-8 space-y-10">
+        
+        <section class="text-center space-y-2">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Calcula tu <span class="text-brand-600">Sueldo Neto</span></h2>
+            <p class="text-gray-500 text-sm sm:text-base">Descubre cuánto dinero exacto llegará a tu cuenta a final de mes tras aplicar el IRPF y las cotizaciones de 2026.</p>
+        </section>
+
+        <!-- Calculadora -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden p-6 sm:p-8">
+            <form id="form-sueldo" class="space-y-5" onsubmit="event.preventDefault(); calcularSueldo();">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Salario Bruto Anual (€)</label>
+                    <input type="number" id="brutoAnual" required placeholder="Ej: 24000" class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none">
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Número de pagas</label>
+                        <select id="pagas" class="w-full rounded-lg border border-gray-300 px-4 py-3 bg-white outline-none">
+                            <option value="12">12 pagas (Prorrateadas)</option>
+                            <option value="14" selected>14 pagas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Edad</label>
+                        <input type="number" id="edad" required value="30" class="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-pulse w-full rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-lg py-3.5 transition">
+                    Calcular mi Sueldo Neto
+                </button>
+            </form>
+
+            <!-- ESPACIO ADSENSE -->
+            <div class="mt-6 border-2 border-dashed border-gray-300 bg-gray-50 rounded-xl py-8 flex justify-center">
+                <span class="text-gray-400 text-sm text-center">Espacio reservado para banner de AdSense (Responsive)</span>
+            </div>
+
+            <!-- RESULTADOS -->
+            <div id="resultado-panel" class="hidden mt-8 bg-brand-50 border border-brand-200 rounded-xl p-6">
+                <h3 class="text-lg font-bold text-brand-900 mb-4 text-center">Tu Nómina Estimada</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-white rounded-xl p-4 text-center shadow-sm">
+                        <p class="text-xs font-semibold text-gray-500 uppercase">Sueldo Neto Mensual</p>
+                        <p id="res-mensual" class="text-3xl font-extrabold text-brand-700 mt-1">0,00 €</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 text-center shadow-sm">
+                        <p class="text-xs font-semibold text-gray-500 uppercase">Sueldo Neto Anual</p>
+                        <p id="res-anual" class="text-3xl font-extrabold text-gray-800 mt-1">0,00 €</p>
+                    </div>
+                </div>
+                <div class="text-sm text-gray-600 bg-white rounded-xl p-4 shadow-sm space-y-2">
+                    <div class="flex justify-between border-b pb-1"><span>Salario Bruto Anual:</span> <strong id="res-bruto">0 €</strong></div>
+                    <div class="flex justify-between border-b pb-1 text-red-600"><span>Retención IRPF est.:</span> <strong id="res-irpf">0 €</strong></div>
+                    <div class="flex justify-between text-red-600"><span>Seguridad Social (incl. MEI):</span> <strong id="res-ss">0 €</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CONTENIDO SEO (El texto que generamos antes) ========== -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Diferencia entre Sueldo Bruto y Sueldo Neto (Explicación para principiantes)</h2>
+                <p class="mb-4 text-gray-700">El mundo de las nóminas, los contratos y la fiscalidad puede resultar tremendamente confuso cuando nos enfrentamos a nuestra primera oferta laboral o negociamos un aumento de sueldo. Como paso número uno para mantener una salud financiera óptima, la distinción más importante que debes grabar a fuego en tu mente es la diferencia radical entre el salario bruto y el salario neto.</p>
+                <p class="mb-4 text-gray-700">Por un lado, el <strong>sueldo bruto</strong> es la cantidad total de dinero que la empresa te paga por tu trabajo antes de aplicar cualquier tipo de retención. Es la "cifra grande" que aparece en las ofertas de empleo (por ejemplo, 24.000 euros anuales). Sin embargo, este no es el dinero que podrás gastar.</p>
+                <p class="text-gray-700">Por otro lado, el <strong>sueldo neto</strong> es el dinero real que ingresa en tu cuenta bancaria a final de mes. Es el resultado directo de restar al salario bruto inicial todas las obligaciones fiscales: las cotizaciones a la Seguridad Social y las retenciones a cuenta del IRPF.</p>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">¿Qué me descuentan de la nómina en 2026?</h2>
+                <ul class="list-disc pl-6 space-y-3 text-gray-700">
+                    <li><strong>Impuesto sobre la Renta (IRPF):</strong> Es un adelanto que haces a Hacienda mes a mes sobre el impuesto de la Declaración de la Renta. Es progresivo: cuanto más ganas, mayor es el porcentaje.</li>
+                    <li><strong>Seguridad Social (Contingencias Comunes):</strong> El 4,70% se destina a cubrir bajas médicas y conformar tu futura pensión.</li>
+                    <li><strong>Desempleo y Formación Profesional:</strong> Un 1,55% (paro) y un 0,10% (formación) para garantizar tus prestaciones.</li>
+                    <li><strong>Mecanismo de Equidad Intergeneracional (MEI):</strong> Un descuento del 0,12% para rellenar la "hucha de las pensiones".</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">¿Es mejor cobrar en 12 o en 14 pagas?</h2>
+                <p class="mb-4 text-gray-700">A nivel económico anual, cobrar en 12 o en 14 pagas es exactamente lo mismo. El sueldo neto anual final será idéntico. La diferencia radica en la gestión mensual:</p>
+                <p class="mb-4 text-gray-700"><strong>12 pagas (extras prorrateadas):</strong> Recibes un salario mensual más alto, ideal si tienes gastos fijos elevados o prefieres invertir tu dinero mes a mes.</p>
+                <p class="text-gray-700"><strong>14 pagas:</strong> Recibirás 12 nóminas algo más bajas, pero a cambio cobrarás nómina doble en verano y Navidad. Funciona como un sistema de ahorro forzoso para las épocas de más gastos.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-200 bg-white mt-auto">
+        <div class="max-w-4xl mx-auto px-4 py-6 text-center text-xs text-gray-400">
+            <p>&copy; 2026 Portal Laboral — Herramientas de estimación laboral. No constituye asesoramiento legal.</p>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        // Menú móvil
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('icon-open');
+        const iconClose = document.getElementById('icon-close');
+        
+        menuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            iconOpen.classList.toggle('hidden', isOpen);
+            iconClose.classList.toggle('hidden', !isOpen);
+        });
+
+        // Calculadora
+        function calcularSueldo() {
+            const bruto = parseFloat(document.getElementById('brutoAnual').value);
+            const pagas = parseInt(document.getElementById('pagas').value);
+            
+            if (!bruto || bruto <= 0) return;
+
+            // Seguridad Social (aprox 6.47% global trabajador)
+            const cuotaSS = bruto * 0.0647; 
+            
+            // IRPF Simplificado (Estimación progresiva)
+            let irpf = 0;
+            if(bruto <= 12450) irpf = bruto * 0.10; // Retención mínima asumiendo mínimos personales
+            else if(bruto <= 20200) irpf = bruto * 0.14;
+            else if(bruto <= 35200) irpf = bruto * 0.18;
+            else if(bruto <= 60000) irpf = bruto * 0.23;
+            else irpf = bruto * 0.30;
+
+            const totalNetoAnual = bruto - cuotaSS - irpf;
+            const netoMensual = totalNetoAnual / pagas;
+
+            const format = (num) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(num);
+
+            document.getElementById('res-bruto').innerText = format(bruto);
+            document.getElementById('res-ss').innerText = format(cuotaSS);
+            document.getElementById('res-irpf').innerText = format(irpf);
+            document.getElementById('res-anual').innerText = format(totalNetoAnual);
+            document.getElementById('res-mensual').innerText = format(netoMensual);
+
+            const panel = document.getElementById('resultado-panel');
+            panel.classList.remove('hidden');
+            setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+        }
+    </script>
+</body>
+</html>

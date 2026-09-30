@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Paro y Prestación por Desempleo (España 2026) — Calcula tu paro gratis</title>
+    <meta name="description" content="Calcula cuánto cobrarás de paro en España en 2026. Descubre la duración y cuantía de tu prestación por desempleo según tus cotizaciones.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50:  '#eef7ff',
+                            100: '#d9edff',
+                            200: '#bce0ff',
+                            300: '#8ecdff',
+                            400: '#59b0ff',
+                            500: '#338dff',
+                            600: '#1a6df5',
+                            700: '#1357e1',
+                            800: '#1646b6',
+                            900: '#183e8f',
+                            950: '#132757',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        #resultado {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        #resultado.hidden {
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+        }
+        #resultado:not(.hidden) {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #alerta-no-derecho {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        #alerta-no-derecho.hidden {
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+        }
+        #alerta-no-derecho:not(.hidden) {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes subtle-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(26, 109, 245, 0.45); }
+            50%      { box-shadow: 0 0 0 8px rgba(26, 109, 245, 0); }
+        }
+        .btn-pulse { animation: subtle-pulse 2.5s infinite; }
+
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 109, 245, 0.25);
+            border-color: #1a6df5;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] { -moz-appearance: textfield; }
+
+        /* Mobile nav */
+        #mobile-menu {
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 300px;
+            opacity: 1;
+        }
+
+        @media print {
+            header, nav, #adsense-banner, #contenido-seo, footer, #btn-calcular { display: none; }
+            #resultado { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- ========== HEADER + NAV ========== -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-30">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0">
+                    <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center shadow-sm">
+                        <svg class="w-4.5 h-4.5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21" />
+                        </svg>
+                    </div>
+                    <span class="text-lg font-bold text-gray-900 hidden sm:inline">Portal Laboral</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-700 hover:bg-brand-50 transition">Finiquito</a>
+                    <a href="sueldo-neto.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-700 hover:bg-brand-50 transition">Sueldo Neto</a>
+                    <a href="paro.html" class="px-3 py-2 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition" aria-current="page">Calculadora de Paro</a>
+                </nav>
+
+                <!-- Mobile hamburger -->
+                <button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition" aria-label="Abrir menú">
+                    <svg id="icon-open" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <svg id="icon-close" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden pb-3">
+                <nav class="flex flex-col gap-1">
+                    <a href="index.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition">Calculadora de Finiquito</a>
+                    <a href="sueldo-neto.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition">Sueldo Bruto a Neto</a>
+                    <a href="paro.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition" aria-current="page">Calculadora de Paro</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== MAIN ========== -->
+    <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-8 sm:py-12 space-y-10">
+
+        <!-- Intro -->
+        <section class="text-center space-y-2">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Calcula tu prestación <span class="text-brand-600">por desempleo</span></h2>
+            <p class="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">Introduce tus datos de cotización y descubre cuánto cobrarás de paro, durante cuántos meses y el importe total estimado.</p>
+        </section>
+
+        <!-- Calculator Card -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <form id="calculadora" class="p-6 sm:p-8 space-y-6" autocomplete="off" novalidate>
+
+                <!-- Base Reguladora -->
+                <div>
+                    <label for="baseReguladora" class="block text-sm font-semibold text-gray-700 mb-1">
+                        Base Reguladora Mensual&nbsp;<span class="text-brand-600">(€)</span>
+                    </label>
+                    <p class="text-xs text-gray-400 mb-2">Media de tus bases de cotización de las últimas 6 nóminas (consulta tu informe de vida laboral).</p>
+                    <div class="relative">
+                        <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 text-sm">€</span>
+                        <input
+                            type="number"
+                            id="baseReguladora"
+                            name="baseReguladora"
+                            min="0"
+                            step="0.01"
+                            placeholder="Ej: 1600"
+                            required
+                            class="w-full rounded-lg border border-gray-300 pl-8 pr-4 py-3 text-base transition"
+                        >
+                    </div>
+                </div>
+
+                <!-- Dos columnas: Meses cotizados e Hijos -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <!-- Meses cotizados -->
+                    <div>
+                        <label for="mesesCotizados" class="block text-sm font-semibold text-gray-700 mb-1">
+                            Meses cotizados <span class="text-gray-400 font-normal">(últimos 6 años)</span>
+                        </label>
+                        <p class="text-xs text-gray-400 mb-2">Mínimo 12 meses para tener derecho a prestación contributiva.</p>
+                        <input
+                            type="number"
+                            id="mesesCotizados"
+                            name="mesesCotizados"
+                            min="0"
+                            max="72"
+                            step="1"
+                            placeholder="Ej: 24"
+                            required
+                            class="w-full rounded-lg border border-gray-300 px-4 py-3 text-base transition"
+                        >
+                    </div>
+
+                    <!-- Hijos a cargo -->
+                    <div>
+                        <label for="hijos" class="block text-sm font-semibold text-gray-700 mb-1">
+                            ¿Tienes hijos a cargo?
+                        </label>
+                        <p class="text-xs text-gray-400 mb-2">Afecta a los topes mínimo y máximo de la prestación.</p>
+                        <select
+                            id="hijos"
+                            name="hijos"
+                            class="w-full rounded-lg border border-gray-300 px-4 py-3 text-base transition bg-white cursor-pointer"
+                        >
+                            <option value="0" selected>Ninguno</option>
+                            <option value="1">1 hijo a cargo</option>
+                            <option value="2">2 o más hijos a cargo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    id="btn-calcular"
+                    class="btn-pulse w-full rounded-xl bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white font-semibold text-base sm:text-lg py-3.5 transition-all duration-150 cursor-pointer"
+                >
+                    Calcular mi prestación por desempleo
+                </button>
+            </form>
+
+            <!-- ===== ADSENSE BANNER PLACEHOLDER ===== -->
+            <div id="adsense-banner" class="mx-6 sm:mx-8 mb-6 border-2 border-dashed border-gray-300 rounded-xl py-10 flex items-center justify-center">
+                <p class="text-gray-400 text-sm text-center px-4">Espacio reservado para banner de AdSense (Responsive)</p>
+            </div>
+
+            <!-- ===== ALERTA SIN DERECHO ===== -->
+            <div id="alerta-no-derecho" class="hidden mx-6 sm:mx-8 mb-8">
+                <div class="bg-red-50 border-2 border-red-300 rounded-xl p-6 sm:p-8 flex items-start gap-4">
+                    <div class="flex-shrink-0 mt-0.5">
+                        <svg class="w-7 h-7 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-red-800 mb-1">No tienes derecho a paro contributivo</h3>
+                        <p class="text-sm text-red-700 leading-relaxed">Para acceder a la prestación contributiva por desempleo, necesitas haber cotizado un <strong>mínimo de 12 meses</strong> (360 días) dentro de los últimos 6 años. Con los meses que has indicado, no alcanzas ese umbral. Podrías tener derecho al <strong>subsidio por desempleo</strong> (ayuda asistencial de 480 €/mes aprox.) si cumples ciertos requisitos adicionales. Consulta con tu oficina del SEPE.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== RESULTADO ===== -->
+            <div id="resultado" class="hidden mx-6 sm:mx-8 mb-8">
+                <div class="bg-brand-50 border border-brand-200 rounded-xl p-6 sm:p-8 space-y-6">
+                    <h3 class="text-lg font-bold text-brand-900 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-brand-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                        Tu prestación por desempleo estimada
+                    </h3>
+
+                    <!-- Headline cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="bg-white rounded-xl p-4 border border-brand-100 text-center">
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Duración</p>
+                            <p id="res-duracion" class="text-2xl sm:text-3xl font-extrabold text-brand-700">—</p>
+                            <p class="text-xs text-gray-400 mt-0.5">meses</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 border border-brand-100 text-center">
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Cobro mensual</p>
+                            <p id="res-mensual-inicial" class="text-2xl sm:text-3xl font-extrabold text-brand-700">—</p>
+                            <p class="text-xs text-gray-400 mt-0.5" id="res-mensual-sub">primeros 6 meses</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 border border-brand-100 text-center">
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Total estimado</p>
+                            <p id="res-total" class="text-2xl sm:text-3xl font-extrabold text-brand-700">—</p>
+                            <p class="text-xs text-gray-400 mt-0.5">acumulado bruto</p>
+                        </div>
+                    </div>
+
+                    <!-- Desglose detallado -->
+                    <div>
+                        <p class="text-sm font-semibold text-brand-900 mb-3">Desglose por periodos</p>
+                        <ul class="divide-y divide-brand-100 text-sm sm:text-base">
+                            <li class="flex justify-between py-2.5">
+                                <span class="text-gray-600">Base Reguladora</span>
+                                <span id="res-base" class="font-semibold text-gray-900">—</span>
+                            </li>
+                            <li class="flex justify-between py-2.5">
+                                <span class="text-gray-600 flex items-center gap-1.5">
+                                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+                                    Meses 1–6 (70%)
+                                </span>
+                                <span id="res-cuantia-70" class="font-semibold text-gray-900">—</span>
+                            </li>
+                            <li id="fila-60" class="flex justify-between py-2.5">
+                                <span class="text-gray-600 flex items-center gap-1.5">
+                                    <span class="inline-block w-2 h-2 rounded-full bg-amber-400"></span>
+                                    <span id="lbl-60">Mes 7 en adelante (60%)</span>
+                                </span>
+                                <span id="res-cuantia-60" class="font-semibold text-gray-900">—</span>
+                            </li>
+                            <li class="flex justify-between py-2.5">
+                                <span class="text-gray-600">Tope mínimo aplicado</span>
+                                <span id="res-tope-min" class="font-semibold text-gray-900">—</span>
+                            </li>
+                            <li class="flex justify-between py-2.5">
+                                <span class="text-gray-600">Tope máximo aplicado</span>
+                                <span id="res-tope-max" class="font-semibold text-gray-900">—</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Timeline visual -->
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Línea temporal de tu prestación</p>
+                        <div id="timeline" class="w-full h-5 rounded-full overflow-hidden flex bg-gray-200">
+                            <div id="barra-70" class="bg-emerald-500 transition-all duration-500" style="width:0%"></div>
+                            <div id="barra-60" class="bg-amber-400 transition-all duration-500" style="width:0%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-500 mt-1.5">
+                            <span class="flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span> 70% — <span id="lbl-meses-70">0</span> meses</span>
+                            <span class="flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-full bg-amber-400"></span> 60% — <span id="lbl-meses-60">0</span> meses</span>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-gray-500 leading-relaxed">* Este cálculo es una <strong>estimación orientativa</strong> basada en la normativa general del SEPE para 2026. El resultado real puede variar en función de tu situación familiar completa, bases de cotización exactas, y si se aplican complementos o reducciones. Consulta con tu oficina de empleo para un cálculo definitivo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CONTENIDO SEO ========== -->
+        <section id="contenido-seo" class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8">
+            <div class="space-y-8">
+    <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Requisitos para cobrar el paro en 2026</h2>
+        <p class="text-gray-700 mb-4">Enfrentarse a la pérdida de un empleo genera mucha incertidumbre, pero el sistema de la Seguridad Social está diseñado para protegerte económicamente durante la transición. Para tener derecho a cobrar la prestación contributiva por desempleo (lo que todos conocemos coloquialmente como "el paro") en 2026, el Servicio Público de Empleo Estatal (SEPE) exige cumplir una serie de requisitos fundamentales.</p>
+        <p class="text-gray-700">El requisito más crítico e ineludible es <strong>haber cotizado un mínimo de 360 días</strong> (es decir, un año completo) dentro de los 6 años inmediatamente anteriores a quedarte sin trabajo. Además de esto, debes estar afiliado y en situación de alta en la Seguridad Social, inscribirte como demandante de empleo, suscribir el compromiso de actividad y encontrarte en una "situación legal de desempleo" (como ocurre tras un despido o la finalización temporal de tu contrato).</p>
+    </div>
+
+    <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">¿Cuánto voy a cobrar de paro?</h2>
+        <p class="text-gray-700 mb-4">La cantidad de dinero que ingresará el SEPE en tu cuenta bancaria depende directamente de tu "Base Reguladora". Esta base es la media matemática de las bases de cotización de tus últimas seis nóminas. Una vez que el sistema calcula esa media, se aplican los siguientes porcentajes:</p>
+        <ul class="list-disc pl-6 space-y-3 text-gray-700">
+            <li><strong>Durante los primeros 6 meses (del día 1 al 180):</strong> Cobrarás el <strong>70%</strong> de tu base reguladora.</li>
+            <li><strong>A partir del mes 7 (del día 181 en adelante):</strong> La cuantía se reducirá al <strong>60%</strong> de tu base reguladora. Este porcentaje se mantiene hasta que agotes por completo el tiempo de prestación.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Topes máximos y mínimos del SEPE según tus hijos</h2>
+        <p class="text-gray-700 mb-4">Aunque hayas tenido un salario muy elevado, el Estado impone unos límites estrictos. No puedes cobrar de paro más de lo que marca el tope máximo, el cual varía dependiendo de tus responsabilidades familiares (hijos menores de 26 años a cargo):</p>
+        <ul class="list-disc pl-6 space-y-3 text-gray-700">
+            <li><strong>Sin hijos a cargo:</strong> El importe máximo ronda los 1.225 euros mensuales brutos.</li>
+            <li><strong>Con 1 hijo a cargo:</strong> El límite máximo se incrementa, situándose aproximadamente en los 1.400 euros mensuales.</li>
+            <li><strong>Con 2 o más hijos a cargo:</strong> Es el tope más alto, permitiéndote cobrar un máximo cercano a los 1.575 euros mensuales.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">¿Qué pasa si he cotizado menos de un año?</h2>
+        <p class="text-gray-700">Si miras tu vida laboral y te das cuenta de que no alcanzas la barrera de los 360 días cotizados, el SEPE tiene un mecanismo de protección llamado <strong>Subsidio por insuficiencia de cotización</strong>. Para acceder a esta ayuda económica (unos 480€ al mes), los requisitos varían según tu situación familiar. Si tienes responsabilidades familiares, te bastará con haber cotizado 3, 4 o 5 meses. Si no las tienes, necesitarás al menos 6 meses cotizados.</p>
+    </div>
+
+    <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Preguntas Frecuentes</h2>
+        <div class="space-y-6">
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">¿Puedo cobrar el paro si pido la baja voluntaria?</h3>
+                <p class="text-gray-700">Como norma general, no. Solicitar una baja voluntaria significa que decides abandonar tu puesto de trabajo por tu propia voluntad, lo que rompe el requisito de estar en "situación legal de desempleo". Solo existen excepciones muy específicas avaladas por la ley (como traslados forzosos o impagos graves) donde podrías tener derecho a prestación.</p>
+            </div>
+            
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">¿Qué día del mes paga el SEPE el paro?</h3>
+                <p class="text-gray-700">Oficialmente, el SEPE ordena el pago de las prestaciones entre el día 10 y el 15 de cada mes. Sin embargo, en la práctica, la gran mayoría de los bancos españoles suelen adelantar este dinero a sus clientes, por lo que es habitual ver el ingreso en tu cuenta entre el día 3 y el día 5.</p>
+            </div>
+            
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">¿Mientras cobro el paro sigo cotizando?</h3>
+                <p class="text-gray-700">Sí. Mientras percibes la prestación contributiva por desempleo, el SEPE asume la cuota empresarial a la Seguridad Social y te descuenta de tu nómina tu parte de la cuota obrera. Todo el tiempo que estés cobrando el paro computa para tu futura pensión de jubilación.</p>
+            </div>
+        </div>
+    </div>
+</div>
+        </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="border-t border-gray-200 bg-white mt-auto">
+        <div class="max-w-4xl mx-auto px-4 py-6 text-center text-xs text-gray-400 space-y-1">
+            <p>&copy; <span id="footer-year"></span> Portal Laboral — Herramientas gratuitas de estimación laboral para España.</p>
+            <p>Esta herramienta no constituye asesoramiento legal, fiscal ni laboral.</p>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+    (() => {
+        'use strict';
+
+        // ---- DOM ----
+        const form          = document.getElementById('calculadora');
+        const inputBase     = document.getElementById('baseReguladora');
+        const inputMeses    = document.getElementById('mesesCotizados');
+        const selectHijos   = document.getElementById('hijos');
+
+        const panel         = document.getElementById('resultado');
+        const alertaPanel   = document.getElementById('alerta-no-derecho');
+
+        // Mobile menu
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen   = document.getElementById('icon-open');
+        const iconClose  = document.getElementById('icon-close');
+
+        menuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            iconOpen.classList.toggle('hidden', isOpen);
+            iconClose.classList.toggle('hidden', !isOpen);
+        });
+
+        // Footer year
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        // ---- IPREM 2026 (approx) ----
+        // IPREM mensual ≈ 600 €  → anual 7.200 €  → +2 pagas extras = 8.400 €
+        const IPREM_MENSUAL = 600;
+
+        // Topes mínimos y máximos (función del IPREM y nº hijos)
+        // Mínimo: 80% IPREM sin hijos, 107% IPREM con hijos
+        // Máximo: 175% IPREM sin hijos, 200% con 1 hijo, 225% con 2+ hijos
+        function topesSegunHijos(hijos) {
+            const h = parseInt(hijos);
+            let topeMin, topeMax;
+            if (h === 0) {
+                topeMin = IPREM_MENSUAL * 0.80;
+                topeMax = IPREM_MENSUAL * 1.75;
+            } else if (h === 1) {
+                topeMin = IPREM_MENSUAL * 1.07;
+                topeMax = IPREM_MENSUAL * 2.00;
+            } else {
+                topeMin = IPREM_MENSUAL * 1.07;
+                topeMax = IPREM_MENSUAL * 2.25;
+            }
+            return { min: topeMin, max: topeMax };
+        }
+
+        // ---- Helpers ----
+        function eur(n) {
+            return new Intl.NumberFormat('es-ES', {
+                style: 'currency', currency: 'EUR',
+                minimumFractionDigits: 2, maximumFractionDigits: 2,
+            }).format(n);
+        }
+
+        function val(input) {
+            const n = parseFloat(input.value);
+            return Number.isFinite(n) && n >= 0 ? n : 0;
+        }
+
+        function setError(input, show) {
+            if (show) {
+                input.classList.add('border-red-400', 'bg-red-50');
+                input.classList.remove('border-gray-300');
+            } else {
+                input.classList.remove('border-red-400', 'bg-red-50');
+                input.classList.add('border-gray-300');
+            }
+        }
+
+        function aplicarTopes(cuantia, topes) {
+            return Math.max(topes.min, Math.min(cuantia, topes.max));
+        }
+
+        // ---- Main ----
+        function calcular() {
+            const baseReguladora = val(inputBase);
+            const mesesCotizados = Math.floor(val(inputMeses));
+            const hijos          = selectHijos.value;
+
+            // Validation
+            let valid = true;
+            if (baseReguladora <= 0) { setError(inputBase, true); valid = false; }
+            else { setError(inputBase, false); }
+
+            if (mesesCotizados <= 0 || mesesCotizados > 72) { setError(inputMeses, true); valid = false; }
+            else { setError(inputMeses, false); }
+
+            if (!valid) {
+                panel.classList.add('hidden');
+                alertaPanel.classList.add('hidden');
+                return;
+            }
+
+            // ============================
+            // ¿Tiene derecho? (mín 12 meses)
+            // ============================
+            if (mesesCotizados < 12) {
+                panel.classList.add('hidden');
+                alertaPanel.classList.remove('hidden');
+                setTimeout(() => alertaPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+                return;
+            }
+
+            alertaPanel.classList.add('hidden');
+
+            // ============================
+            // 1. Duración: 1 mes de paro / 3 cotizados (máx 24)
+            // ============================
+            const duracionMeses = Math.min(24, Math.floor(mesesCotizados / 3));
+
+            // ============================
+            // 2. Cuantías
+            // ============================
+            const topes = topesSegunHijos(hijos);
+
+            const cuantia70Bruta = baseReguladora * 0.70;
+            const cuantia60Bruta = baseReguladora * 0.60;
+
+            const cuantia70 = aplicarTopes(cuantia70Bruta, topes);
+            const cuantia60 = aplicarTopes(cuantia60Bruta, topes);
+
+            // Meses en cada tramo
+            const meses70 = Math.min(duracionMeses, 6);
+            const meses60 = Math.max(0, duracionMeses - 6);
+
+            // Total acumulado
+            const total = (cuantia70 * meses70) + (cuantia60 * meses60);
+
+            // ============================
+            // Update UI
+            // ============================
+            document.getElementById('res-duracion').textContent        = duracionMeses;
+            document.getElementById('res-mensual-inicial').textContent = eur(cuantia70);
+            document.getElementById('res-mensual-sub').textContent     = duracionMeses <= 6 ? 'durante toda la prestación' : 'primeros 6 meses';
+            document.getElementById('res-total').textContent           = eur(total);
+
+            document.getElementById('res-base').textContent       = eur(baseReguladora);
+            document.getElementById('res-cuantia-70').textContent = eur(cuantia70) + '/mes';
+            document.getElementById('res-cuantia-60').textContent = meses60 > 0 ? eur(cuantia60) + '/mes' : 'No aplica';
+            document.getElementById('res-tope-min').textContent   = eur(topes.min) + '/mes';
+            document.getElementById('res-tope-max').textContent   = eur(topes.max) + '/mes';
+
+            // Fila de 60% visibility
+            const fila60 = document.getElementById('fila-60');
+            if (meses60 === 0) {
+                fila60.classList.add('opacity-40');
+            } else {
+                fila60.classList.remove('opacity-40');
+                document.getElementById('lbl-60').textContent = `Mes 7–${duracionMeses} (60%)`;
+            }
+
+            // Timeline bar
+            const pct70 = (meses70 / duracionMeses) * 100;
+            const pct60 = (meses60 / duracionMeses) * 100;
+            document.getElementById('barra-70').style.width = pct70 + '%';
+            document.getElementById('barra-60').style.width = pct60 + '%';
+            document.getElementById('lbl-meses-70').textContent = meses70;
+            document.getElementById('lbl-meses-60').textContent = meses60;
+
+            // Show
+            panel.classList.remove('hidden');
+            setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+        }
+
+        // ---- Events ----
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            calcular();
+        });
+
+        [inputBase, inputMeses].forEach(input => {
+            input.addEventListener('input', () => setError(input, false));
+        });
+
+    })();
+    </script>
+</body>
+</html>
