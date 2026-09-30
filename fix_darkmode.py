@@ -1,7 +1,6 @@
-import os
+ï»¿import os
 import re
 
-# Base header for replacement, we will format it with correct active classes per file
 header_template = '''    <!-- ========== HEADER + NAV ========== -->
     <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30">
         <div class="max-w-4xl mx-auto px-4">
@@ -25,7 +24,7 @@ header_template = '''    <!-- ========== HEADER + NAV ========== -->
                     <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                     <svg id="theme-toggle-light-icon" class="hidden w-6 h-6 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                 </button>
-                <button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition" aria-label="Abrir menú">
+                <button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition" aria-label="Abrir menu">
                     <svg id="icon-open" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
                     <svg id="icon-close" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
                 </button>
@@ -86,16 +85,12 @@ for i, file in enumerate(files):
     with open(file, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Tailwind Config
     if "darkMode: 'class'" not in content:
         content = re.sub(r'tailwind\.config = \{', "tailwind.config = {\n            darkMode: 'class',", content, count=1)
 
-    # FOUC Script
     if "document.documentElement.classList.add('dark')" not in content:
         content = content.replace("</head>", fouc_script)
 
-    # Header Replacement
-    # Match everything from <header to </header>
     if file == 'sueldo-neto.html':
         h = header_template.format(nav1=inactive_class, nav2=active_class, nav3=inactive_class, navm1=inactive_class_m, navm2=active_class, navm3=inactive_class_m)
     else:
@@ -103,13 +98,9 @@ for i, file in enumerate(files):
         
     content = re.sub(r'<header.*?</header>', h, content, flags=re.DOTALL)
     
-    # Body classes missing fix
+    # Body fixes
     content = re.sub(r'<body class="([^"]*)"', lambda m: f'<body class="{m.group(1)} dark:bg-gray-900 dark:text-white"'.replace('dark:bg-gray-900 dark:bg-gray-900', 'dark:bg-gray-900').replace('dark:text-white dark:text-white', 'dark:text-white'), content)
-
-    # Clean double classes like dark:text-gray-400 dark:text-gray-500 that might have occurred in the nav previously
-    content = content.replace('dark:text-gray-400 dark:text-gray-500', 'dark:text-gray-400')
     
-    # Bottom JS Logic
     if "themeToggleBtn.addEventListener" not in content:
         content = content.replace("})();\n    </script>", js_logic)
 
