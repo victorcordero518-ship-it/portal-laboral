@@ -10,7 +10,8 @@
     adSlots.forEach((slot) => {
         const placement = slot.dataset.adSlot;
         const placementConfig = config.slots[placement];
-        if (!placementConfig) {
+        // No muestres huecos vacíos: solo se habilitan cuando ambos IDs estén configurados.
+        if (!placementConfig || !config.publisherId || !placementConfig.slotId) {
             slot.hidden = true;
             return;
         }
