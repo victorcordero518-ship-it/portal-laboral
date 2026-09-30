@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Estima la duración y cuantía de tu prestación contributiva por desempleo en España según tus cotizaciones y base reguladora.">
     <meta name="robots" content="index, follow">
-    <title>Calculadora de Paro en España | Portal Laboral</title>
+    <title>Calculadora de Paro en España | TuDineroLaboral</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -115,20 +115,22 @@
         <div class="max-w-4xl mx-auto px-4">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
-                <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0">
+                <a href="/" class="flex items-center gap-2.5 flex-shrink-0">
                     <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center shadow-sm">
                         <svg class="w-4.5 h-4.5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21" />
                         </svg>
                     </div>
-                    <span class="text-lg font-bold text-gray-900 dark:text-white hidden sm:inline">Portal Laboral</span>
+                    <span class="text-lg font-bold text-gray-900 dark:text-white hidden sm:inline">TuDineroLaboral</span>
                 </a>
 
                 <!-- Desktop Nav -->
-                <nav class="hidden md:flex items-center gap-1">
-                    <a href="index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Finiquito</a>
-                    <a href="sueldo-neto.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Sueldo Neto</a>
-                    <a href="paro.html" class="px-3 py-2 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition">Calculadora de Paro</a>
+                <nav aria-label="Principal" class="hidden lg:flex items-center gap-1">
+                    <a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Inicio</a>
+                    <a href="/#calculadoras" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Calculadoras</a>
+                    <a href="/#contenido-seo" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Guías</a>
+                    <a href="/sobre-nosotros/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Sobre nosotros</a>
+                    <a href="/contacto/" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Contacto</a>
                 </nav>
 
                 <!-- Theme toggle -->
@@ -138,7 +140,7 @@
                 </button>
 
                 <!-- Mobile hamburger -->
-                <button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition" aria-label="Abrir menú">
+                <button id="menu-toggle" aria-expanded="false" class="lg:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition" aria-label="Abrir menú">
                     <svg id="icon-open" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
                     <svg id="icon-close" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
                 </button>
@@ -147,11 +149,13 @@
 
 
             <!-- Mobile Menu -->
-            <div id="mobile-menu" class="md:hidden pb-3" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .3s ease,opacity .3s ease">
-                <nav class="flex flex-col gap-1">
-                    <a href="index.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Calculadora de Finiquito</a>
-                    <a href="sueldo-neto.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Sueldo Bruto a Neto</a>
-                    <a href="paro.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition">Calculadora de Paro</a>
+            <div id="mobile-menu" class="lg:hidden pb-3" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .3s ease,opacity .3s ease">
+                <nav aria-label="Principal en móvil" class="flex flex-col gap-1">
+                    <a href="/" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Inicio</a>
+                    <a href="/#calculadoras" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Calculadoras</a>
+                    <a href="/#contenido-seo" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Guías</a>
+                    <a href="/sobre-nosotros/" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Sobre nosotros</a>
+                    <a href="/contacto/" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Contacto</a>
                 </nav>
             </div>
         </div>
@@ -242,7 +246,7 @@
 
             <!-- ===== ADSENSE BANNER PLACEHOLDER ===== -->
             <div id="adsense-banner" class="mx-6 sm:mx-8 mb-6 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl py-10 flex items-center justify-center">
-                <p class="text-gray-400 dark:text-gray-500 text-sm text-center px-4">Espacio reservado para banner de AdSense (Responsive)</p>
+                <p class="text-gray-400 dark:text-gray-500 text-sm text-center px-4">Espacio reservado para anuncios</p>
             </div>
 
             <!-- ===== ALERTA SIN DERECHO ===== -->
@@ -339,7 +343,7 @@
         </section>
 
         <!-- ========== CONTENIDO SEO ========== -->
-        <section id="contenido-seo" class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
+        <section id="contenido-seo" class="scroll-mt-24 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
             <div class="space-y-8">
     <div>
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Requisitos para cobrar el paro</h2>
@@ -368,7 +372,7 @@
 
     <div>
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">¿Qué pasa si he cotizado menos de un año?</h2>
-        <p class="text-gray-700 dark:text-gray-300">Si miras tu vida laboral y te das cuenta de que no alcanzas la barrera de los 360 días cotizados, el SEPE tiene un mecanismo de protección llamado <strong>Subsidio por insuficiencia de cotización</strong>. Para acceder a esta ayuda económica (unos 480€ al mes), los requisitos varían según tu situación familiar. Si tienes responsabilidades familiares, te bastará con haber cotizado 3, 4 o 5 meses. Si no las tienes, necesitarás al menos 6 meses cotizados.</p>
+        <p class="text-gray-700 dark:text-gray-300">Si no alcanzas el periodo necesario para la prestación contributiva, podrías cumplir los requisitos de algún subsidio. La duración y cuantía dependen de la modalidad, las cotizaciones y tu situación personal; consulta la información vigente del <a class="text-brand-700 underline" href="https://www.sepe.es/HomeSepe/prestaciones-desempleo.html">SEPE</a>.</p>
     </div>
 
     <div>
@@ -376,17 +380,17 @@
         <div class="space-y-6">
             <div class="bg-gray-50 dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-700">
                 <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">¿Puedo cobrar el paro si pido la baja voluntaria?</h3>
-                <p class="text-gray-700 dark:text-gray-300">Como norma general, no. Solicitar una baja voluntaria significa que decides abandonar tu puesto de trabajo por tu propia voluntad, lo que rompe el requisito de estar en "situación legal de desempleo". Solo existen excepciones muy específicas avaladas por la ley (como traslados forzosos o impagos graves) donde podrías tener derecho a prestación.</p>
+                <p class="text-gray-700 dark:text-gray-300">Como regla general, una baja voluntaria no da acceso inmediato al paro. El SEPE debe valorar la causa del cese y el cumplimiento del resto de requisitos. Si estás calculando las cantidades pendientes al dejar el empleo, consulta también la <a class="text-brand-700 underline" href="/#calculadora">calculadora de finiquito</a>.</p>
             </div>
 
             <div class="bg-gray-50 dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-700">
                 <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">¿Qué día del mes paga el SEPE el paro?</h3>
-                <p class="text-gray-700 dark:text-gray-300">Oficialmente, el SEPE ordena el pago de las prestaciones entre el día 10 y el 15 de cada mes. Sin embargo, en la práctica, la gran mayoría de los bancos españoles suelen adelantar este dinero a sus clientes, por lo que es habitual ver el ingreso en tu cuenta entre el día 3 y el día 5.</p>
+                <p class="text-gray-700 dark:text-gray-300">La fecha efectiva de abono puede variar. Consulta la información actualizada del SEPE y de tu entidad bancaria.</p>
             </div>
 
             <div class="bg-gray-50 dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-700">
                 <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">¿Mientras cobro el paro sigo cotizando?</h3>
-                <p class="text-gray-700 dark:text-gray-300">Sí. Mientras percibes la prestación contributiva por desempleo, el SEPE asume la cuota empresarial a la Seguridad Social y te descuenta de tu nómina tu parte de la cuota obrera. Todo el tiempo que estés cobrando el paro computa para tu futura pensión de jubilación.</p>
+                <p class="text-gray-700 dark:text-gray-300">Durante la prestación pueden mantenerse cotizaciones a la Seguridad Social conforme a las reglas aplicables. El detalle y sus efectos dependen del tipo de prestación y de la situación de cada persona; consúltalo con el SEPE.</p>
             </div>
         </div>
     </div>
@@ -398,7 +402,7 @@
     <!-- ========== FOOTER ========== -->
     <footer class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 mt-auto">
         <div class="max-w-4xl mx-auto px-4 py-6 text-center text-xs text-gray-400 dark:text-gray-500 space-y-1">
-            <p>&copy; <span id="footer-year"></span> Portal Laboral — Herramientas gratuitas de estimación laboral para España.</p>
+            <p>&copy; <span id="footer-year"></span> TuDineroLaboral — Herramientas gratuitas de estimación laboral para España.</p>
             <p>Esta herramienta no constituye asesoramiento legal, fiscal ni laboral. <a href="legales.html" class="underline hover:text-gray-600 dark:hover:text-gray-300">Aviso Legal y Privacidad</a></p>
         </div>
     </footer>
@@ -471,6 +475,7 @@
         if (menu && menuToggle) menuToggle.addEventListener('click', () => {
             const open = menu.style.maxHeight === '0px' || menu.style.maxHeight === '';
             menu.style.maxHeight = open ? '300px' : '0px'; menu.style.opacity = open ? '1' : '0';
+            menuToggle.setAttribute('aria-expanded', String(open));
             byId('icon-open')?.classList.toggle('hidden', open); byId('icon-close')?.classList.toggle('hidden', !open);
             menuToggle.setAttribute('aria-expanded', String(open));
         });
