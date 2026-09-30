@@ -80,7 +80,7 @@
 
         /* Print-friendly */
         @media print {
-            header, nav, #adsense-banner, #contenido-seo, footer, #btn-calcular { display: none; }
+            header, nav, #adsense-banner, #guias, footer, #btn-calcular { display: none; }
             #resultado { break-inside: avoid; }
         }
     </style>
@@ -114,7 +114,7 @@
                 <nav aria-label="Principal" class="hidden lg:flex items-center gap-1">
                     <a href="index.html" data-home-nav class="px-3 py-2 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition" aria-current="page">Inicio</a>
                     <a href="#calculadoras" data-section-nav="calculadoras" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Calculadoras</a>
-                    <a href="#contenido-seo" data-section-nav="contenido-seo" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Guías</a>
+                    <a href="#guias" data-section-nav="guias" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Guías</a>
                     <a href="sobre-nosotros.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Sobre nosotros</a>
                     <a href="contacto.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Contacto</a>
                 </nav>
@@ -137,7 +137,7 @@
                 <nav aria-label="Principal en móvil" class="flex flex-col gap-1">
                     <a href="index.html" data-home-nav class="px-3 py-2.5 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition" aria-current="page">Inicio</a>
                     <a href="#calculadoras" data-section-nav="calculadoras" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Calculadoras</a>
-                    <a href="#contenido-seo" data-section-nav="contenido-seo" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Guías</a>
+                    <a href="#guias" data-section-nav="guias" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Guías</a>
                     <a href="sobre-nosotros.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Sobre nosotros</a>
                     <a href="contacto.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Contacto</a>
                 </nav>
@@ -168,7 +168,7 @@
         </section>
 
         <!-- ========== CONTENIDO SEO ========== -->
-        <section id="contenido-seo" class="scroll-mt-24 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
+        <section id="guias" class="scroll-mt-24 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
             <div class="space-y-8 text-gray-700 dark:text-gray-300 leading-relaxed">
 
                 <div>
@@ -307,7 +307,7 @@
 
         function updateActiveNavigationFromHash() {
             const hash = window.location.hash;
-            setActiveNavigation(hash === '#contenido-seo' ? 'contenido-seo' : ['#calculadoras', '#calculadora'].includes(hash) ? 'calculadoras' : '');
+            setActiveNavigation(hash === '#guias' ? 'guias' : ['#calculadoras', '#calculadora'].includes(hash) ? 'calculadoras' : '');
         }
 
         sectionLinks.forEach((link) => {
