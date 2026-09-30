@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <script src="cookie-consent.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Consulta el aviso legal, la política de privacidad y la información sobre cookies de TuDineroLaboral.">
     <meta name="robots" content="index, follow">
@@ -42,13 +43,14 @@
         @media print { header, nav, footer { display: none; } }
     </style>
     <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (window.TDLConsent.getPreference('theme') === 'dark' || (window.TDLConsent.getPreference('theme') === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
     </script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://tudinerolaboral.com/#website","url":"https://tudinerolaboral.com/","name":"TuDineroLaboral","inLanguage":"es-ES"},{"@type":"WebPage","@id":"https://tudinerolaboral.com/legales.html#webpage","url":"https://tudinerolaboral.com/legales.html","name":"Aviso legal, privacidad y cookies","description":"Consulta el aviso legal, la política de privacidad y la información sobre cookies de TuDineroLaboral.","inLanguage":"es-ES","isPartOf":{"@id":"https://tudinerolaboral.com/#website"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://tudinerolaboral.com/"},{"@type":"ListItem","position":2,"name":"Aviso legal"}]}]}</script>
+    <link rel="stylesheet" href="cookie-consent.css">
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans antialiased min-h-screen flex flex-col">
 
@@ -103,10 +105,23 @@
             <p class="mb-6">Este sitio ofrece herramientas y contenido de carácter general y orientativo. Sus resultados no son asesoramiento legal, fiscal ni laboral ni garantizan el resultado aplicable a un caso concreto. La normativa, el convenio, el contrato y las circunstancias personales pueden cambiar la estimación. Contrasta los datos con fuentes oficiales o con un profesional cualificado.</p>
 
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Política de Privacidad</h2>
-            <p class="mb-6">Los cálculos se realizan en el navegador y el sitio no guarda los valores introducidos en las calculadoras. El navegador sí solicita recursos técnicos alojados en servicios externos (Tailwind CSS y Google Fonts), cuyos proveedores pueden recibir datos de conexión conforme a sus propias políticas. El sitio utiliza localStorage para recordar la preferencia de tema claro u oscuro.</p>
+            <p class="mb-6">Los cálculos se realizan en el navegador y el sitio no guarda los valores introducidos en las calculadoras. El navegador solicita recursos técnicos alojados en servicios externos (Tailwind CSS y Google Fonts), cuyos proveedores pueden recibir datos de conexión conforme a sus propias políticas. Las preferencias de consentimiento se guardan en el almacenamiento local del navegador y no se envían al sitio; la preferencia de tema solo se conserva si autorizas la categoría «Preferencias».</p>
 
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Política de Cookies</h2>
-            <p>La preferencia de tema se guarda en localStorage, no en una cookie. En la versión actual no se ha integrado código de Google AdSense ni analítica publicitaria; la web contiene únicamente espacios reservados para anuncios. Si se incorporan servicios que usen cookies o tecnologías similares, esta información deberá actualizarse antes de activarlos.</p>
+            <h2 id="cookies" class="text-2xl font-bold text-gray-900 dark:text-white mb-4 scroll-mt-24">Política de Cookies</h2>
+            <p class="mb-4">En esta versión no se utilizan cookies propias para analítica o publicidad. El panel guarda la versión, la fecha de la elección y las categorías elegidas en el almacenamiento local del navegador (<code>localStorage</code>); esta información no se envía al sitio. La elección se vuelve a solicitar al cabo de 24 meses, si se borra el almacenamiento o si cambia la versión del panel.</p>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Categorías</h3>
+            <ul class="list-disc pl-6 space-y-2 mb-4">
+                <li><strong>Necesarias:</strong> siempre activas. Guardan y aplican la elección del panel y permiten respetarla en las visitas posteriores.</li>
+                <li><strong>Preferencias:</strong> opcionales. Si las autorizas, se guarda en el navegador la elección de tema claro u oscuro.</li>
+                <li><strong>Analíticas:</strong> opcionales. Actualmente no hay herramientas de analítica integradas, por lo que esta categoría no activa ningún servicio.</li>
+                <li><strong>Publicidad:</strong> opcional. Actualmente no hay código de Google AdSense ni de otros proveedores publicitarios; los espacios visibles son solo marcadores y no realizan solicitudes de anuncios. Si se integra AdSense, Google y sus socios podrían utilizar cookies o tecnologías similares para mostrar y medir publicidad según las opciones disponibles y la configuración de consentimiento aplicable.</li>
+            </ul>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Cambiar o retirar la elección</h3>
+            <p class="mb-4">Puedes abrir «Configurar cookies» desde el pie de cualquier página para cambiar las categorías o retirar el consentimiento opcional. También puedes borrar los datos locales de este sitio desde la configuración de tu navegador; en ese caso volverá a mostrarse el panel.</p>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Servicios publicitarios futuros</h3>
+            <p class="mb-4">Antes de activar AdSense se deberá completar la configuración de la cuenta, identificar los proveedores y tecnologías que se vayan a utilizar, actualizar esta política con la información confirmada y conectar una solución de consentimiento adecuada. Este panel propio no es una CMP certificada por Google ni genera una señal TCF.</p>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Contacto</h3>
+            <p>La identidad legal y los datos de contacto del responsable no se han facilitado para esta web, por lo que no puedo identificarlos aquí sin inventarlos. La página de <a class="text-brand-700 underline" href="contacto.html">Contacto</a> refleja que actualmente no hay una dirección de correo ni otro canal verificado publicado.</p>
 
         </section>
     </main>
@@ -114,7 +129,7 @@
     <footer class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 mt-auto">
         <div class="max-w-4xl mx-auto px-4 py-6 text-center text-xs text-gray-400 dark:text-gray-500 space-y-1">
             <p>&copy; <span id="footer-year">2026</span> TuDineroLaboral — Herramientas gratuitas de estimación laboral para España.</p>
-            <p>Esta herramienta no constituye asesoramiento legal ni laboral. <a href="legales.html" class="underline hover:text-gray-600 dark:hover:text-gray-300">Aviso Legal y Privacidad</a></p>
+            <p>Esta herramienta no constituye asesoramiento legal ni laboral. <a href="legales.html" class="underline hover:text-gray-600 dark:hover:text-gray-300">Aviso Legal y Privacidad</a><span aria-hidden="true"> · </span><button type="button" data-cookie-open class="underline hover:text-gray-600 dark:hover:text-gray-300">Configurar cookies</button></p>
         </div>
     </footer>
 
@@ -140,7 +155,7 @@
         const darkIcon = document.getElementById('theme-toggle-dark-icon');
         const lightIcon = document.getElementById('theme-toggle-light-icon');
 
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (window.TDLConsent.getPreference('theme') === 'dark' || (window.TDLConsent.getPreference('theme') === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             lightIcon.classList.remove('hidden');
         } else {
             darkIcon.classList.remove('hidden');
@@ -152,10 +167,10 @@
                 lightIcon.classList.toggle('hidden');
                 if (document.documentElement.classList.contains('dark')) {
                     document.documentElement.classList.remove('dark');
-                    localStorage.setItem('theme', 'light');
+                    window.TDLConsent.setPreference('theme', 'light');
                 } else {
                     document.documentElement.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
+                    window.TDLConsent.setPreference('theme', 'dark');
                 }
             });
         }
