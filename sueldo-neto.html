@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Estima tu sueldo neto anual y por paga en España a partir del salario bruto.">
+    <meta name="description" content="Calcula una estimación del sueldo neto anual y por paga a partir del salario bruto. La cifra depende de tu situación personal y fiscal.">
     <meta name="robots" content="index, follow">
-    <title>Calculadora de Sueldo Neto en España | TuDineroLaboral</title>
+    <title>Calculadora de sueldo neto | TuDineroLaboral</title>
+    <link rel="canonical" href="https://tudinerolaboral.com/sueldo-neto.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TuDineroLaboral">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:title" content="Calculadora de sueldo neto | TuDineroLaboral">
+    <meta property="og:description" content="Calcula una estimación del sueldo neto anual y por paga a partir del salario bruto. La cifra depende de tu situación personal y fiscal.">
+    <meta property="og:url" content="https://tudinerolaboral.com/sueldo-neto.html">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://tudinerolaboral.com/sueldo-neto.html">
+    <meta name="twitter:title" content="Calculadora de sueldo neto | TuDineroLaboral">
+    <meta name="twitter:description" content="Calcula una estimación del sueldo neto anual y por paga a partir del salario bruto. La cifra depende de tu situación personal y fiscal.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -46,6 +57,7 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://tudinerolaboral.com/#website","url":"https://tudinerolaboral.com/","name":"TuDineroLaboral","inLanguage":"es-ES"},{"@type":"WebPage","@id":"https://tudinerolaboral.com/sueldo-neto.html#webpage","url":"https://tudinerolaboral.com/sueldo-neto.html","name":"Calculadora de sueldo neto","description":"Calcula una estimación del sueldo neto anual y por paga a partir del salario bruto. La cifra depende de tu situación personal y fiscal.","inLanguage":"es-ES","isPartOf":{"@id":"https://tudinerolaboral.com/#website"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://tudinerolaboral.com/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://tudinerolaboral.com/#calculadoras"},{"@type":"ListItem","position":3,"name":"Sueldo neto"}]}]}</script>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex flex-col min-h-screen dark:bg-gray-900 dark:text-white">
 
@@ -100,6 +112,11 @@
     </header>
 
     <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-8 space-y-10">
+        <nav aria-label="Migas de pan" class="text-sm text-gray-500 dark:text-gray-400">
+        <ol class="flex flex-wrap items-center gap-2">
+        <li><a class="hover:text-brand-700 underline-offset-2 hover:underline" href="index.html">Inicio</a></li><li aria-hidden="true">/</li>
+        <li><a class="hover:text-brand-700 underline-offset-2 hover:underline" href="index.html#calculadoras">Calculadoras</a></li><li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-700 dark:text-gray-200">Sueldo neto</li></ol></nav>
 
         <section class="text-center space-y-2">
             <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Calcula tu <span class="text-brand-600">Sueldo Neto</span></h1>
@@ -136,7 +153,7 @@
 
             <!-- RESULTADOS -->
             <div id="resultado-panel" class="hidden mt-8 bg-brand-50 border border-brand-200 rounded-xl p-6">
-                <h3 class="text-lg font-bold text-brand-900 mb-4 text-center">Tu Nómina Estimada</h3>
+                <h2 class="text-lg font-bold text-brand-900 mb-4 text-center">Tu Nómina Estimada</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <div class="bg-white dark:bg-gray-800 rounded-xl p-4 text-center shadow-sm">
                         <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase">Neto por paga</p>

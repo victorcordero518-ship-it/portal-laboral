@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Calcula una estimación orientativa del finiquito: salario pendiente, vacaciones no disfrutadas y pagas extra. Informativo y gratuito.">
+    <meta name="description" content="Estima salarios pendientes, vacaciones no disfrutadas y pagas extra al finalizar un contrato. Resultado orientativo según tus datos.">
     <meta name="robots" content="index, follow">
-    <title>Calculadora de Finiquito en España | TuDineroLaboral</title>
+    <title>Calculadora de finiquito | TuDineroLaboral</title>
+    <link rel="canonical" href="https://tudinerolaboral.com/finiquito.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TuDineroLaboral">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:title" content="Calculadora de finiquito | TuDineroLaboral">
+    <meta property="og:description" content="Estima salarios pendientes, vacaciones no disfrutadas y pagas extra al finalizar un contrato. Resultado orientativo según tus datos.">
+    <meta property="og:url" content="https://tudinerolaboral.com/finiquito.html">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://tudinerolaboral.com/finiquito.html">
+    <meta name="twitter:title" content="Calculadora de finiquito | TuDineroLaboral">
+    <meta name="twitter:description" content="Estima salarios pendientes, vacaciones no disfrutadas y pagas extra al finalizar un contrato. Resultado orientativo según tus datos.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -80,6 +91,7 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://tudinerolaboral.com/#website","url":"https://tudinerolaboral.com/","name":"TuDineroLaboral","inLanguage":"es-ES"},{"@type":"WebPage","@id":"https://tudinerolaboral.com/finiquito.html#webpage","url":"https://tudinerolaboral.com/finiquito.html","name":"Calculadora de finiquito","description":"Estima salarios pendientes, vacaciones no disfrutadas y pagas extra al finalizar un contrato. Resultado orientativo según tus datos.","inLanguage":"es-ES","isPartOf":{"@id":"https://tudinerolaboral.com/#website"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://tudinerolaboral.com/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://tudinerolaboral.com/#calculadoras"},{"@type":"ListItem","position":3,"name":"Finiquito"}]}]}</script>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans antialiased min-h-screen flex flex-col dark:bg-gray-900 dark:text-white">
 
@@ -135,12 +147,22 @@
 
     <!-- ========== MAIN ========== -->
     <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-8 sm:py-12 space-y-10">
+        <nav aria-label="Migas de pan" class="text-sm text-gray-500 dark:text-gray-400">
+        <ol class="flex flex-wrap items-center gap-2">
+        <li><a class="hover:text-brand-700 underline-offset-2 hover:underline" href="index.html">Inicio</a></li><li aria-hidden="true">/</li>
+        <li><a class="hover:text-brand-700 underline-offset-2 hover:underline" href="index.html#calculadoras">Calculadoras</a></li><li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-700 dark:text-gray-200">Finiquito</li></ol></nav>
         <section class="text-center space-y-2">
             <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Calculadora de finiquito <span class="text-brand-600">orientativa</span></h1>
             <p class="text-gray-500 dark:text-gray-400 text-sm sm:text-base max-w-xl mx-auto">Completa los datos de tu relación laboral para obtener una estimación de las cantidades pendientes al finalizar el contrato.</p>
         </section>
 
         <!-- Calculator Card -->
+        <section class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-5 sm:p-6 space-y-2">
+            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Información relacionada</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Consulta la <a class="text-brand-700 underline" href="index.html#contenido-seo">guía sobre la baja voluntaria y el finiquito</a> o utiliza la <a class="text-brand-700 underline" href="paro.html">calculadora de prestación por desempleo</a>.</p>
+        </section>
+
         <section class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
             <form id="calculadora" class="p-6 sm:p-8 space-y-6" autocomplete="off" novalidate>
 
@@ -237,10 +259,10 @@
             <!-- ===== RESULTADO ===== -->
             <div id="resultado" class="hidden mx-6 sm:mx-8 mb-8">
                 <div class="bg-brand-50 border border-brand-200 rounded-xl p-6 sm:p-8 space-y-5">
-                    <h3 class="text-lg font-bold text-brand-900 flex items-center gap-2">
+                    <h2 class="text-lg font-bold text-brand-900 flex items-center gap-2">
                         <svg class="w-5 h-5 text-brand-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
                         Resultado estimado de tu finiquito
-                    </h3>
+                    </h2>
 
                     <!-- Desglose -->
                     <ul class="divide-y divide-brand-100 text-sm sm:text-base">
