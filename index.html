@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Calcula una estimación de tu finiquito por baja voluntaria en España: salario pendiente, vacaciones no disfrutadas y pagas extra.">
+    <meta name="description" content="Calculadoras y guías orientativas sobre finiquitos, prestaciones por desempleo y sueldo neto en España.">
     <meta name="robots" content="index, follow">
-    <title>Calculadora de Finiquito en España | TuDineroLaboral</title>
+    <title>TuDineroLaboral | Calculadoras y guías laborales</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -138,149 +138,20 @@
 
         <!-- Intro -->
         <section class="text-center space-y-2">
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Calcula tu finiquito <span class="text-brand-600">en segundos</span></h1>
-            <p class="text-gray-500 dark:text-gray-400 dark:text-gray-500 text-sm sm:text-base max-w-xl mx-auto">Introduce tus datos laborales y obtén una estimación inmediata de lo que te corresponde cobrar al dejar tu empresa.</p>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Herramientas laborales <span class="text-brand-600">claras y orientativas</span></h1>
+            <p class="text-gray-500 dark:text-gray-400 dark:text-gray-500 text-sm sm:text-base max-w-xl mx-auto">Consulta calculadoras y guías para orientarte sobre situaciones habituales relacionadas con el trabajo.</p>
         </section>
 
 
         <section id="calculadoras" class="space-y-5 scroll-mt-24" aria-labelledby="tools-heading">
             <div class="text-center space-y-2"><h2 id="tools-heading" class="text-2xl font-bold text-gray-900 dark:text-white">Más herramientas</h2><p class="text-sm text-gray-500 dark:text-gray-400">Elige una calculadora laboral. Las próximas herramientas se publicarán cuando estén listas.</p></div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <a href="#calculadora" class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 hover:border-brand-300 hover:shadow-sm transition"><h3 class="font-semibold text-gray-900 dark:text-white">Calculadora de finiquito</h3><p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Estima salarios pendientes, vacaciones no disfrutadas y pagas extra.</p><span class="mt-4 inline-block text-sm font-semibold text-brand-700">Calcular →</span></a>
+                <a href="finiquito.html#calculadora" class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 hover:border-brand-300 hover:shadow-sm transition"><h3 class="font-semibold text-gray-900 dark:text-white">Calculadora de finiquito</h3><p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Estima salarios pendientes, vacaciones no disfrutadas y pagas extra.</p><span class="mt-4 inline-block text-sm font-semibold text-brand-700">Calcular →</span></a>
                 <a href="paro.html" class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 hover:border-brand-300 hover:shadow-sm transition"><h3 class="font-semibold text-gray-900 dark:text-white">Calculadora de paro</h3><p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Estima duración y cuantía de la prestación.</p><span class="mt-4 inline-block text-sm font-semibold text-brand-700">Calcular →</span></a>
                 <a href="sueldo-neto.html" class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 hover:border-brand-300 hover:shadow-sm transition"><h3 class="font-semibold text-gray-900 dark:text-white">Calculadora de sueldo neto</h3><p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Estima tu sueldo neto a partir del salario bruto.</p><span class="mt-4 inline-block text-sm font-semibold text-brand-700">Calcular →</span></a>
                 <article class="bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5"><span class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Próximamente</span><h3 class="mt-2 font-semibold text-gray-900 dark:text-white">Calculadora de vacaciones</h3><p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Estamos preparando esta herramienta.</p></article>
                 <article class="bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5"><span class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Próximamente</span><h3 class="mt-2 font-semibold text-gray-900 dark:text-white">Calculadora de indemnización</h3><p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Estamos preparando esta herramienta.</p></article>
                 <article class="bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5"><span class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Próximamente</span><h3 class="mt-2 font-semibold text-gray-900 dark:text-white">Calculadora de salario por hora</h3><p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Estamos preparando esta herramienta.</p></article>
-            </div>
-        </section>
-
-        <!-- Calculator Card -->
-        <section class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <form id="calculadora" class="p-6 sm:p-8 space-y-6" autocomplete="off" novalidate>
-
-                <!-- Salario Bruto Mensual -->
-                <div>
-                    <label for="salarioBruto" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                        Salario Bruto Mensual&nbsp;<span class="text-brand-600">(€)</span>
-                    </label>
-                    <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Tu salario bruto mensual sin incluir pagas extras (consulta tu nómina).</p>
-                    <div class="relative">
-                        <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 dark:text-gray-500 text-sm">€</span>
-                        <input
-                            type="number"
-                            id="salarioBruto"
-                            name="salarioBruto"
-                            min="0"
-                            step="0.01"
-                            placeholder="Ej: 1800"
-                            required
-                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 pl-8 pr-4 py-3 text-base transition dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                        >
-                    </div>
-                </div>
-
-                <!-- Días trabajados en el mes actual -->
-                <div>
-                    <label for="diasTrabajados" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                        Días trabajados en el mes actual
-                    </label>
-                    <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Días naturales desde el día 1 del mes hasta tu último día en la empresa.</p>
-                    <input
-                        type="number"
-                        id="diasTrabajados"
-                        name="diasTrabajados"
-                        min="0"
-                        max="31"
-                        step="1"
-                        placeholder="Ej: 15"
-                        required
-                        class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 text-base transition dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                    >
-                </div>
-
-                <!-- Días de vacaciones no disfrutadas -->
-                <div>
-                    <label for="diasVacaciones" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                        Días de vacaciones no disfrutadas
-                    </label>
-                    <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Días de vacaciones que te corresponden y que aún no has cogido este año.</p>
-                    <input
-                        type="number"
-                        id="diasVacaciones"
-                        name="diasVacaciones"
-                        min="0"
-                        max="365"
-                        step="1"
-                        placeholder="Ej: 5"
-                        required
-                        class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 text-base transition dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                    >
-                </div>
-
-                <!-- Pagas extras prorrateadas -->
-                <div>
-                    <label for="pagasProrrateadas" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                        ¿Tus pagas extras están prorrateadas?
-                    </label>
-                    <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Si recibes 12 pagas (extra incluida cada mes), selecciona <strong>Sí</strong>. Si recibes 14 pagas al año, selecciona <strong>No</strong>.</p>
-                    <select
-                        id="pagasProrrateadas"
-                        name="pagasProrrateadas"
-                        class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 text-base transition bg-white dark:bg-gray-800 cursor-pointer dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                    >
-                        <option value="no" selected>No — recibo 14 pagas al año</option>
-                        <option value="si">Sí — las pagas están prorrateadas (12 pagas)</option>
-                    </select>
-                </div>
-
-                <!-- Submit -->
-                <button
-                    type="submit"
-                    id="btn-calcular"
-                    class="btn-pulse w-full rounded-xl bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white font-semibold text-base sm:text-lg py-3.5 transition-all duration-150 cursor-pointer"
-                >
-                    Calcular mi finiquito
-                </button>
-            </form>
-
-            <!-- ===== ADSENSE BANNER PLACEHOLDER ===== -->
-            <div id="adsense-banner" class="mx-6 sm:mx-8 mb-6 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl py-10 flex items-center justify-center">
-                <p class="text-gray-400 dark:text-gray-500 text-sm text-center px-4">Espacio reservado para anuncios</p>
-            </div>
-
-            <!-- ===== RESULTADO ===== -->
-            <div id="resultado" class="hidden mx-6 sm:mx-8 mb-8">
-                <div class="bg-brand-50 border border-brand-200 rounded-xl p-6 sm:p-8 space-y-5">
-                    <h3 class="text-lg font-bold text-brand-900 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-brand-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
-                        Resultado estimado de tu finiquito
-                    </h3>
-
-                    <!-- Desglose -->
-                    <ul class="divide-y divide-brand-100 text-sm sm:text-base">
-                        <li class="flex justify-between py-2">
-                            <span class="text-gray-600 dark:text-gray-400 dark:text-gray-500">Salario días trabajados</span>
-                            <span id="res-salario" class="font-semibold text-gray-900 dark:text-white">—</span>
-                        </li>
-                        <li class="flex justify-between py-2">
-                            <span class="text-gray-600 dark:text-gray-400 dark:text-gray-500">Vacaciones no disfrutadas</span>
-                            <span id="res-vacaciones" class="font-semibold text-gray-900 dark:text-white">—</span>
-                        </li>
-                        <li class="flex justify-between py-2">
-                            <span class="text-gray-600 dark:text-gray-400 dark:text-gray-500">Parte proporcional pagas extras</span>
-                            <span id="res-pagas" class="font-semibold text-gray-900 dark:text-white">—</span>
-                        </li>
-                    </ul>
-
-                    <!-- Total -->
-                    <div class="flex items-end justify-between pt-4 border-t-2 border-brand-300">
-                        <span class="text-base font-bold text-brand-900">Total estimado (bruto)</span>
-                        <span id="res-total" class="text-2xl sm:text-3xl font-extrabold text-brand-700">—</span>
-                    </div>
-
-                    <p class="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 leading-relaxed">* Este cálculo es una <strong>estimación orientativa</strong>. El importe final puede variar en función del convenio colectivo aplicable, retenciones de IRPF y cotizaciones a la Seguridad Social. Consulta con un profesional laboral para obtener una cifra exacta.</p>
-                </div>
             </div>
         </section>
 
@@ -347,7 +218,7 @@
     <!-- ========== FOOTER ========== -->
     <footer class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 mt-auto">
         <div class="max-w-3xl mx-auto px-4 py-6 text-center text-xs text-gray-400 dark:text-gray-500 space-y-1">
-            <p>&copy; <span id="footer-year"></span> Calculadora de Finiquito España — Herramienta gratuita de estimación.</p>
+            <p>&copy; <span id="footer-year"></span> TuDineroLaboral — Herramientas de estimación laboral.</p>
             <p>Esta herramienta no constituye asesoramiento legal ni laboral. <a href="legales.html" class="underline hover:text-gray-600 dark:hover:text-gray-300">Aviso Legal y Privacidad</a></p>
         </div>
     </footer>
@@ -357,76 +228,8 @@
     (() => {
         'use strict';
 
-        const form             = document.getElementById('calculadora');
-        const inputSalario     = document.getElementById('salarioBruto');
-        const inputDias        = document.getElementById('diasTrabajados');
-        const inputVacaciones  = document.getElementById('diasVacaciones');
-        const selectPagas      = document.getElementById('pagasProrrateadas');
-        const panelResultado   = document.getElementById('resultado');
-        const resSalario       = document.getElementById('res-salario');
-        const resVacaciones    = document.getElementById('res-vacaciones');
-        const resPagas         = document.getElementById('res-pagas');
-        const resTotal         = document.getElementById('res-total');
-
         const footerYear = document.getElementById('footer-year');
         if (footerYear) footerYear.textContent = new Date().getFullYear();
-
-        const DIAS_MES = 30;
-
-        function eur(n) {
-            return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
-        }
-
-        function val(input) {
-            const n = parseFloat(input.value);
-            return Number.isFinite(n) && n >= 0 ? n : 0;
-        }
-
-        function setError(input, show) {
-            if (show) {
-                input.classList.add('border-red-400', 'bg-red-50');
-                input.classList.remove('border-gray-300');
-            } else {
-                input.classList.remove('border-red-400', 'bg-red-50');
-                input.classList.add('border-gray-300');
-            }
-        }
-
-        function calcular() {
-            const salarioBruto    = val(inputSalario);
-            const diasTrabajados  = val(inputDias);
-            const rawVacaciones  = inputVacaciones.value.trim();
-            const diasVacaciones = Number(rawVacaciones);
-            const prorrateadas    = selectPagas.value === 'si';
-
-            let valid = true;
-            if (salarioBruto <= 0) { setError(inputSalario, true); valid = false; } else setError(inputSalario, false);
-            if (diasTrabajados <= 0 || diasTrabajados > 31) { setError(inputDias, true); valid = false; } else setError(inputDias, false);
-            if (rawVacaciones === '' || !Number.isFinite(diasVacaciones) || diasVacaciones < 0 || diasVacaciones > 365) { setError(inputVacaciones, true); valid = false; } else setError(inputVacaciones, false);
-            if (!valid) { panelResultado.classList.add('hidden'); return; }
-
-            const salarioDiario = salarioBruto / DIAS_MES;
-            const importeSalario = salarioDiario * diasTrabajados;
-            const importeVacaciones = salarioDiario * diasVacaciones;
-
-            let importePagas = 0;
-            if (!prorrateadas) importePagas = (salarioBruto * 2 / 360) * diasTrabajados;
-
-            const total = importeSalario + importeVacaciones + importePagas;
-
-            resSalario.textContent    = eur(importeSalario);
-            resVacaciones.textContent = eur(importeVacaciones);
-            resPagas.textContent      = prorrateadas ? 'Incluidas en nómina' : eur(importePagas);
-            resTotal.textContent      = eur(total);
-
-            panelResultado.classList.remove('hidden');
-            setTimeout(() => panelResultado.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
-        }
-
-        if (form) form.addEventListener('submit', (e) => { e.preventDefault(); calcular(); });
-        [inputSalario, inputDias, inputVacaciones].forEach((input) => {
-            if(input) input.addEventListener('input', () => setError(input, false));
-        });
 
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
