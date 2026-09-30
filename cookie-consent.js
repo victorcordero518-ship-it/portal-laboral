@@ -128,7 +128,7 @@
                 <label class="cookie-toggle"><span class="cookie-toggle__text">Permitir</span><input type="checkbox" role="switch" data-cookie-category="analytics" aria-label="Permitir analíticas"></label>
             </div>
             <div class="cookie-category">
-                <div><h3>Publicidad</h3><p>Reservada para publicidad y su medición. AdSense aún no está integrado y no se cargará por esta elección sola.</p></div>
+                <div><h3>Publicidad</h3><p>La publicidad no está activada. Esta preferencia guarda tu elección, pero no carga anuncios. Antes de activar AdSense se configurará una CMP certificada y la señal de consentimiento correspondiente.</p></div>
                 <label class="cookie-toggle"><span class="cookie-toggle__text">Permitir</span><input type="checkbox" role="switch" data-cookie-category="advertising" aria-label="Permitir publicidad"></label>
             </div>
             <p class="cookie-dialog__error" role="status" aria-live="polite" hidden></p>

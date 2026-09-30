@@ -201,7 +201,7 @@
                     <label for="baseReguladora" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
                         Base Reguladora Mensual&nbsp;<span class="text-brand-600">(€)</span>
                     </label>
-                    <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Media de tus bases de cotización de las últimas 6 nóminas (consulta tu informe de vida laboral).</p>
+                        <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Media de las bases de cotización por desempleo de los últimos 180 días cotizados; puedes consultarlas en tus nóminas.</p>
                     <div class="relative">
                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 dark:text-gray-500 text-sm">€</span>
                         <input
@@ -354,9 +354,15 @@
                         </div>
                     </div>
 
-                    <p class="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 leading-relaxed">* Este cálculo es una <strong>estimación orientativa</strong> basada en la normativa general del SEPE para 2026. El resultado real puede variar en función de tu situación familiar completa, bases de cotización exactas, y si se aplican complementos o reducciones. Consulta con tu oficina de empleo para un cálculo definitivo.</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 leading-relaxed">* Este cálculo es una <strong>estimación orientativa</strong> basada en reglas generales publicadas por el SEPE. Convierte los meses introducidos en periodos de 30 días y no contempla todos los supuestos de cotización parcial, responsabilidades familiares, compatibilidad, suspensiones ni deducciones. Comprueba el resultado con el <a class="underline" href="https://www.sepe.es/HomeSepe/prestaciones-desempleo/duracion-prestacion-contributiva.html" target="_blank" rel="noopener noreferrer">SEPE</a>.</p>
                 </div>
             </div>
+        </section>
+
+        <section class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8 space-y-3 text-sm text-gray-700 dark:text-gray-300" aria-labelledby="fuentes-paro">
+            <h2 id="fuentes-paro" class="text-lg font-bold text-gray-900 dark:text-white">Cómo se calcula y qué debes comprobar</h2>
+            <p>La duración se aproxima a partir de las cotizaciones acumuladas dentro del periodo que introduces; la cuantía parte de una base reguladora y aplica los porcentajes y límites vigentes. El SEPE calcula la prestación con días cotizados y bases concretas: los meses redondeados de esta herramienta no reproducen todos los casos, especialmente si hubo jornadas parciales o cambios de horario.</p>
+            <p>Consulta la <a class="text-brand-700 underline" href="https://www.sepe.es/HomeSepe/prestaciones-desempleo/duracion-prestacion-contributiva.html" target="_blank" rel="noopener noreferrer">tabla oficial de duración</a> y las <a class="text-brand-700 underline" href="https://www.sepe.es/HomeSepe/prestaciones-desempleo/Cuantias-anuales" target="_blank" rel="noopener noreferrer">cuantías anuales del SEPE</a>. El derecho depende además de que exista situación legal de desempleo y se cumplan los demás requisitos.</p>
         </section>
 
         <aside data-ad-slot="paro-after-results" aria-label="Publicidad"></aside>
@@ -366,22 +372,22 @@
             <div class="space-y-8">
     <div>
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Requisitos para cobrar el paro</h2>
-        <p class="text-gray-700 dark:text-gray-300 mb-4">Enfrentarse a la pérdida de un empleo genera mucha incertidumbre, pero el sistema de la Seguridad Social está diseñado para protegerte económicamente durante la transición. Para tener derecho a cobrar la prestación contributiva por desempleo (lo que conocemos coloquialmente como "el paro"), el Servicio Público de Empleo Estatal (SEPE) exige cumplir una serie de requisitos fundamentales.</p>
-        <p class="text-gray-700 dark:text-gray-300">El requisito más crítico e ineludible es <strong>haber cotizado un mínimo de 360 días</strong> (es decir, un año completo) dentro de los 6 años inmediatamente anteriores a quedarte sin trabajo. Además de esto, debes estar afiliado y en situación de alta en la Seguridad Social, inscribirte como demandante de empleo, suscribir el compromiso de actividad y encontrarte en una "situación legal de desempleo" (como ocurre tras un despido o la finalización temporal de tu contrato).</p>
+        <p class="text-gray-700 dark:text-gray-300 mb-4">La prestación contributiva por desempleo, conocida como "el paro", está sujeta a requisitos que valora el Servicio Público de Empleo Estatal (SEPE). La calculadora solo estima duración y cuantía; no decide si existe derecho a cobrarla.</p>
+        <p class="text-gray-700 dark:text-gray-300">Como regla general, se requiere haber cotizado al menos 360 días por desempleo dentro de los seis años anteriores y encontrarse en situación legal de desempleo, además de cumplir los demás requisitos aplicables. Consulta los criterios vigentes en el <a class="text-brand-700 underline" href="https://www.sepe.es/HomeSepe/es/prestaciones-desempleo/prestacion-contributiva/prestacion-contributiva-mas-de-un-anyo.html" target="_blank" rel="noopener noreferrer">SEPE</a>.</p>
     </div>
 
     <div>
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">¿Cuánto voy a cobrar de paro?</h2>
-        <p class="text-gray-700 dark:text-gray-300 mb-4">La cantidad de dinero que ingresará el SEPE en tu cuenta bancaria depende directamente de tu "Base Reguladora". Esta base es la media matemática de las bases de cotización de tus últimas seis nóminas. Una vez que el sistema calcula esa media, se aplican los siguientes porcentajes:</p>
+        <p class="text-gray-700 dark:text-gray-300 mb-4">La base reguladora se calcula a partir de las bases de cotización por desempleo de los últimos 180 días cotizados, con las reglas aplicables. Sobre ella se aplican estos porcentajes generales, sujetos a límites mínimos y máximos:</p>
         <ul class="list-disc pl-6 space-y-3 text-gray-700 dark:text-gray-300">
-            <li><strong>Durante los primeros 6 meses (del día 1 al 180):</strong> Cobrarás el <strong>70%</strong> de tu base reguladora.</li>
-            <li><strong>A partir del mes 7 (del día 181 en adelante):</strong> La cuantía se reducirá al <strong>60%</strong> de tu base reguladora. Este porcentaje se mantiene hasta que agotes por completo el tiempo de prestación.</li>
+            <li><strong>Durante los primeros 180 días:</strong> se aplica el <strong>70%</strong> de la base reguladora.</li>
+            <li><strong>A partir del día 181:</strong> se aplica el <strong>60%</strong> de la base reguladora hasta el final del periodo reconocido.</li>
         </ul>
     </div>
 
     <div>
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Topes máximos y mínimos del SEPE según tus hijos</h2>
-        <p class="text-gray-700 dark:text-gray-300 mb-4">Aunque hayas tenido un salario muy elevado, el Estado impone unos límites estrictos. No puedes cobrar de paro más de lo que marca el tope máximo, el cual varía dependiendo de tus responsabilidades familiares (hijos menores de 26 años a cargo):</p>
+        <p class="text-gray-700 dark:text-gray-300 mb-4">La prestación está sujeta a mínimos y máximos que dependen, entre otros factores, de si tienes hijos o hijas a cargo. Las cuantías cambian por ejercicio; consulta las cifras vigentes publicadas por el <a class="text-brand-700 underline" href="https://www.sepe.es/HomeSepe/prestaciones-desempleo/Cuantias-anuales" target="_blank" rel="noopener noreferrer">SEPE</a>. En el trabajo a tiempo parcial, algunos límites pueden ajustarse al promedio de jornada de los últimos 180 días.</p>
         <ul class="list-disc pl-6 space-y-3 text-gray-700 dark:text-gray-300">
             <li><strong>Sin hijos a cargo:</strong> El importe máximo es de 1.225 euros mensuales brutos.</li>
             <li><strong>Con 1 hijo a cargo:</strong> El límite máximo se incrementa, es de 1.400 euros mensuales brutos.</li>
