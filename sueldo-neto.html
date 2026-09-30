@@ -189,32 +189,30 @@
     </footer>
 
     <!-- LÓGICA JAVASCRIPT -->
-    <script>
-        // Menú móvil
+   <script>
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const iconOpen = document.getElementById('icon-open');
         const iconClose = document.getElementById('icon-close');
         
-        menuToggle.addEventListener('click', () => {
-            const isOpen = mobileMenu.classList.toggle('open');
-            iconOpen.classList.toggle('hidden', isOpen);
-            iconClose.classList.toggle('hidden', !isOpen);
-        });
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.toggle('open');
+                if (iconOpen) iconOpen.classList.toggle('hidden', isOpen);
+                if (iconClose) iconClose.classList.toggle('hidden', !isOpen);
+            });
+        }
 
-        // Calculadora
         function calcularSueldo() {
             const bruto = parseFloat(document.getElementById('brutoAnual').value);
             const pagas = parseInt(document.getElementById('pagas').value);
             
             if (!bruto || bruto <= 0) return;
 
-            // Seguridad Social (aprox 6.47% global trabajador)
             const cuotaSS = bruto * 0.0647; 
             
-            // IRPF Simplificado (Estimación progresiva)
             let irpf = 0;
-            if(bruto <= 12450) irpf = bruto * 0.10; // Retención mínima asumiendo mínimos personales
+            if(bruto <= 12450) irpf = bruto * 0.10; 
             else if(bruto <= 20200) irpf = bruto * 0.14;
             else if(bruto <= 35200) irpf = bruto * 0.18;
             else if(bruto <= 60000) irpf = bruto * 0.23;
@@ -234,6 +232,30 @@
             const panel = document.getElementById('resultado-panel');
             panel.classList.remove('hidden');
             setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+        }
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if (lightIcon) lightIcon.classList.remove('hidden');
+        } else {
+            if (darkIcon) darkIcon.classList.remove('hidden');
+        }
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', function() {
+                if (darkIcon) darkIcon.classList.toggle('hidden');
+                if (lightIcon) lightIcon.classList.toggle('hidden');
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
         }
     </script>
 </body>

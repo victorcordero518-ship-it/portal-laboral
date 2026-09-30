@@ -341,48 +341,31 @@
     (() => {
         'use strict';
 
-        // ---- DOM refs ----
         const form             = document.getElementById('calculadora');
         const inputSalario     = document.getElementById('salarioBruto');
         const inputDias        = document.getElementById('diasTrabajados');
         const inputVacaciones  = document.getElementById('diasVacaciones');
         const selectPagas      = document.getElementById('pagasProrrateadas');
-
         const panelResultado   = document.getElementById('resultado');
         const resSalario       = document.getElementById('res-salario');
         const resVacaciones    = document.getElementById('res-vacaciones');
         const resPagas         = document.getElementById('res-pagas');
         const resTotal         = document.getElementById('res-total');
 
-        // Footer year
-        document.getElementById('footer-year').textContent = new Date().getFullYear();
+        const footerYear = document.getElementById('footer-year');
+        if (footerYear) footerYear.textContent = new Date().getFullYear();
 
-        // ---- Helpers ----
-        const DIAS_MES = 30; // Convenio estándar: 30 días/mes
+        const DIAS_MES = 30;
 
-        /**
-         * Formatea un número como moneda EUR.
-         */
         function eur(n) {
-            return new Intl.NumberFormat('es-ES', {
-                style: 'currency',
-                currency: 'EUR',
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-            }).format(n);
+            return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
         }
 
-        /**
-         * Lee un campo numérico y devuelve 0 si está vacío o no es válido.
-         */
         function val(input) {
             const n = parseFloat(input.value);
             return Number.isFinite(n) && n >= 0 ? n : 0;
         }
 
-        /**
-         * Marca / desmarca error visual en un campo.
-         */
         function setError(input, show) {
             if (show) {
                 input.classList.add('border-red-400', 'bg-red-50');
@@ -393,127 +376,69 @@
             }
         }
 
-        // ---- Cálculo principal ----
         function calcular() {
             const salarioBruto    = val(inputSalario);
             const diasTrabajados  = val(inputDias);
             const diasVacaciones  = val(inputVacaciones);
             const prorrateadas    = selectPagas.value === 'si';
 
-            // Validación básica
             let valid = true;
+            if (salarioBruto <= 0) { setError(inputSalario, true); valid = false; } else setError(inputSalario, false);
+            if (diasTrabajados <= 0 || diasTrabajados > 31) { setError(inputDias, true); valid = false; } else setError(inputDias, false);
+            if (diasVacaciones < 0) { setError(inputVacaciones, true); valid = false; } else setError(inputVacaciones, false);
+            if (!valid) { panelResultado.classList.add('hidden'); return; }
 
-            if (salarioBruto <= 0) { setError(inputSalario, true); valid = false; }
-            else { setError(inputSalario, false); }
-
-            if (diasTrabajados <= 0 || diasTrabajados > 31) { setError(inputDias, true); valid = false; }
-            else { setError(inputDias, false); }
-
-            if (diasVacaciones < 0) { setError(inputVacaciones, true); valid = false; }
-            else { setError(inputVacaciones, false); }
-
-            if (!valid) {
-                panelResultado.classList.add('hidden');
-                return;
-            }
-
-            // Salario diario (sobre 30 días)
             const salarioDiario = salarioBruto / DIAS_MES;
-
-            // 1. Salario proporcional de los días trabajados
             const importeSalario = salarioDiario * diasTrabajados;
-
-            // 2. Vacaciones no disfrutadas
             const importeVacaciones = salarioDiario * diasVacaciones;
-
-            // 3. Parte proporcional de pagas extras (solo si NO están prorrateadas)
-            //    Fórmula: (salarioBruto × 2 / 360) × días trabajados en el año
-            //    Simplificación rápida: salarioBruto / 6 por cada mes completo ≈ salarioDiario × diasTrabajados × (2/12)
-            //    Aquí usamos la proporción sobre los días del mes actual como aproximación sencilla.
-            //    Más preciso: (salarioBruto / 180) × diasTrabajados  (180 = 360/2 pagas)
+            
             let importePagas = 0;
-            if (!prorrateadas) {
-                // Parte proporcional diaria de las 2 pagas extras:
-                // paga extra anual = salarioBruto × 2
-                // paga extra por día = (salarioBruto × 2) / 360
-                // Para los días trabajados en el mes actual:
-                importePagas = (salarioBruto * 2 / 360) * diasTrabajados;
-            }
+            if (!prorrateadas) importePagas = (salarioBruto * 2 / 360) * diasTrabajados;
 
-            // Total bruto del finiquito
             const total = importeSalario + importeVacaciones + importePagas;
 
-            // Actualizar UI
             resSalario.textContent    = eur(importeSalario);
             resVacaciones.textContent = eur(importeVacaciones);
             resPagas.textContent      = prorrateadas ? 'Incluidas en nómina' : eur(importePagas);
             resTotal.textContent      = eur(total);
 
-            // Mostrar panel con animación
             panelResultado.classList.remove('hidden');
-
-            // Scroll suave al resultado
-            setTimeout(() => {
-                panelResultado.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 80);
+            setTimeout(() => panelResultado.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
         }
 
-        // ---- Event Listeners ----
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            calcular();
+        if (form) form.addEventListener('submit', (e) => { e.preventDefault(); calcular(); });
+        [inputSalario, inputDias, inputVacaciones].forEach((input) => { 
+            if(input) input.addEventListener('input', () => setError(input, false)); 
         });
 
-        // Limpiar error al escribir
-        [inputSalario, inputDias, inputVacaciones].forEach((input) => {
-            input.addEventListener('input', () => setError(input, false));
-        });
-
-        // Mobile menu toggle
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const iconOpen   = document.getElementById('icon-open');
         const iconClose  = document.getElementById('icon-close');
-        if (menuToggle) {
+        if (menuToggle && mobileMenu) {
             menuToggle.addEventListener('click', () => {
                 const isOpen = mobileMenu.style.maxHeight === '0px' || mobileMenu.style.maxHeight === '';
                 mobileMenu.style.maxHeight = isOpen ? '300px' : '0px';
                 mobileMenu.style.opacity   = isOpen ? '1' : '0';
-                iconOpen.classList.toggle('hidden', isOpen);
-                iconClose.classList.toggle('hidden', !isOpen);
-            });
-        }
-    
-        // ---- Mobile Menu Logic ----
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const iconOpen   = document.getElementById('icon-open');
-        const iconClose  = document.getElementById('icon-close');
-        if (menuToggle) {
-            menuToggle.addEventListener('click', () => {
-                const isOpen = mobileMenu.style.maxHeight === '0px' || mobileMenu.style.maxHeight === '';
-                mobileMenu.style.maxHeight = isOpen ? '300px' : '0px';
-                mobileMenu.style.opacity   = isOpen ? '1' : '0';
-                iconOpen.classList.toggle('hidden', isOpen);
-                iconClose.classList.toggle('hidden', !isOpen);
+                if(iconOpen) iconOpen.classList.toggle('hidden', isOpen);
+                if(iconClose) iconClose.classList.toggle('hidden', !isOpen);
             });
         }
 
-        // ---- Dark Mode Logic ----
         const themeToggleBtn = document.getElementById('theme-toggle');
         const darkIcon = document.getElementById('theme-toggle-dark-icon');
         const lightIcon = document.getElementById('theme-toggle-light-icon');
         
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            lightIcon.classList.remove('hidden');
+            if (lightIcon) lightIcon.classList.remove('hidden');
         } else {
-            darkIcon.classList.remove('hidden');
+            if (darkIcon) darkIcon.classList.remove('hidden');
         }
 
         if (themeToggleBtn) {
             themeToggleBtn.addEventListener('click', function() {
-                darkIcon.classList.toggle('hidden');
-                lightIcon.classList.toggle('hidden');
+                if (darkIcon) darkIcon.classList.toggle('hidden');
+                if (lightIcon) lightIcon.classList.toggle('hidden');
                 if (document.documentElement.classList.contains('dark')) {
                     document.documentElement.classList.remove('dark');
                     localStorage.setItem('theme', 'light');
@@ -527,3 +452,5 @@
     </script>
 </body>
 </html>
+< ! - -   u p d a t e   - - >  
+ 
