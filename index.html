@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <script src="cookie-consent.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Calculadoras laborales y guías orientativas sobre finiquitos, prestaciones por desempleo y sueldo neto en España.">
     <meta name="robots" content="index, follow">
@@ -80,18 +81,22 @@
 
         /* Print-friendly */
         @media print {
-            header, nav, #adsense-banner, #guias, footer, #btn-calcular { display: none; }
+            header, nav, .ad-slot, #guias, footer, #btn-calcular { display: none; }
             #resultado { break-inside: avoid; }
         }
     </style>
     <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (window.TDLConsent.getPreference('theme') === 'dark' || (window.TDLConsent.getPreference('theme') === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
     </script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://tudinerolaboral.com/#website","url":"https://tudinerolaboral.com/","name":"TuDineroLaboral","inLanguage":"es-ES"},{"@type":"WebPage","@id":"https://tudinerolaboral.com/#webpage","url":"https://tudinerolaboral.com/","name":"TuDineroLaboral | Calculadoras y guías laborales","description":"Calculadoras laborales y guías orientativas sobre finiquitos, prestaciones por desempleo y sueldo neto en España.","inLanguage":"es-ES","isPartOf":{"@id":"https://tudinerolaboral.com/#website"}}]}</script>
+    <link rel="stylesheet" href="ads.css">
+    <script src="ads-config.js" defer></script>
+    <script src="ads.js" defer></script>
+    <link rel="stylesheet" href="cookie-consent.css">
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans antialiased min-h-screen flex flex-col dark:bg-gray-900 dark:text-white">
 
@@ -154,6 +159,7 @@
             <p class="text-gray-500 dark:text-gray-400 dark:text-gray-500 text-sm sm:text-base max-w-xl mx-auto">Consulta calculadoras y guías para orientarte sobre situaciones habituales relacionadas con el trabajo.</p>
         </section>
 
+        <aside data-ad-slot="home-after-intro" aria-label="Publicidad"></aside>
 
         <section id="calculadoras" class="space-y-5 scroll-mt-24" aria-labelledby="tools-heading">
             <div class="text-center space-y-2"><h2 id="tools-heading" class="text-2xl font-bold text-gray-900 dark:text-white">Más herramientas</h2><p class="text-sm text-gray-500 dark:text-gray-400">Elige una calculadora laboral. Las próximas herramientas se publicarán cuando estén listas.</p></div>
@@ -166,6 +172,8 @@
                 <article class="bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-5"><span class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Próximamente</span><h3 class="mt-2 font-semibold text-gray-900 dark:text-white">Calculadora de salario por hora</h3><p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Estamos preparando esta herramienta.</p></article>
             </div>
         </section>
+
+        <aside data-ad-slot="home-between-sections" aria-label="Publicidad"></aside>
 
         <!-- ========== CONTENIDO SEO ========== -->
         <section id="guias" class="scroll-mt-24 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
@@ -225,13 +233,14 @@
             </div>
         </section>
 
+        <aside data-ad-slot="home-before-footer" aria-label="Publicidad"></aside>
     </main>
 
     <!-- ========== FOOTER ========== -->
     <footer class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 mt-auto">
         <div class="max-w-3xl mx-auto px-4 py-6 text-center text-xs text-gray-400 dark:text-gray-500 space-y-1">
             <p>&copy; <span id="footer-year"></span> TuDineroLaboral — Herramientas de estimación laboral.</p>
-            <p>Esta herramienta no constituye asesoramiento legal ni laboral. <a href="legales.html" class="underline hover:text-gray-600 dark:hover:text-gray-300">Aviso Legal y Privacidad</a></p>
+            <p>Esta herramienta no constituye asesoramiento legal ni laboral. <a href="legales.html" class="underline hover:text-gray-600 dark:hover:text-gray-300">Aviso Legal y Privacidad</a><span aria-hidden="true"> · </span><button type="button" data-cookie-open class="underline hover:text-gray-600 dark:hover:text-gray-300">Configurar cookies</button></p>
         </div>
     </footer>
 
@@ -262,7 +271,7 @@
         const darkIcon = document.getElementById('theme-toggle-dark-icon');
         const lightIcon = document.getElementById('theme-toggle-light-icon');
 
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (window.TDLConsent.getPreference('theme') === 'dark' || (window.TDLConsent.getPreference('theme') === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             if (lightIcon) lightIcon.classList.remove('hidden');
         } else {
             if (darkIcon) darkIcon.classList.remove('hidden');
@@ -274,10 +283,10 @@
                 if (lightIcon) lightIcon.classList.toggle('hidden');
                 if (document.documentElement.classList.contains('dark')) {
                     document.documentElement.classList.remove('dark');
-                    localStorage.setItem('theme', 'light');
+                    window.TDLConsent.setPreference('theme', 'light');
                 } else {
                     document.documentElement.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
+                    window.TDLConsent.setPreference('theme', 'dark');
                 }
             });
         }
