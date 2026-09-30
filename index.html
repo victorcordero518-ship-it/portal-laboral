@@ -10,6 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -73,11 +74,18 @@
             #resultado { break-inside: avoid; }
         }
     </style>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans antialiased min-h-screen flex flex-col">
 
     <!-- ========== HEADER + NAV ========== -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-30">
+    <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30">
         <div class="max-w-4xl mx-auto px-4">
             <div class="flex items-center justify-between h-16">
                 <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0">
@@ -86,14 +94,20 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21" />
                         </svg>
                     </div>
-                    <span class="text-lg font-bold text-gray-900 hidden sm:inline">Portal Laboral</span>
+                    <span class="text-lg font-bold text-gray-900 dark:text-white hidden sm:inline">Portal Laboral</span>
                 </a>
                 <nav class="hidden md:flex items-center gap-1">
                     <a href="index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition" aria-current="page">Finiquito</a>
-                    <a href="sueldo-neto.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-700 hover:bg-brand-50 transition">Sueldo Neto</a>
-                    <a href="paro.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-brand-700 hover:bg-brand-50 transition">Calculadora de Paro</a>
+                    <a href="sueldo-neto.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 dark:text-gray-500 hover:text-brand-700 hover:bg-brand-50 transition">Sueldo Neto</a>
+                    <a href="paro.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 dark:text-gray-500 hover:text-brand-700 hover:bg-brand-50 transition">Calculadora de Paro</a>
                 </nav>
-                <button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition" aria-label="Abrir menú">
+
+                <!-- Theme toggle -->
+                <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm p-2 transition md:ml-2">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-6 h-6 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+                <button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 dark:text-gray-500 hover:bg-gray-100 transition" aria-label="Abrir menú">
                     <svg id="icon-open" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
                     <svg id="icon-close" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
                 </button>
@@ -101,8 +115,8 @@
             <div id="mobile-menu" class="md:hidden pb-3" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .3s ease,opacity .3s ease">
                 <nav class="flex flex-col gap-1">
                     <a href="index.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition" aria-current="page">Calculadora de Finiquito</a>
-                    <a href="sueldo-neto.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition">Sueldo Bruto a Neto</a>
-                    <a href="paro.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition">Calculadora de Paro</a>
+                    <a href="sueldo-neto.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 dark:text-gray-500 hover:bg-gray-100 transition">Sueldo Bruto a Neto</a>
+                    <a href="paro.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 dark:text-gray-500 hover:bg-gray-100 transition">Calculadora de Paro</a>
                 </nav>
             </div>
         </div>
@@ -113,22 +127,22 @@
 
         <!-- Intro -->
         <section class="text-center space-y-2">
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Calcula tu finiquito <span class="text-brand-600">en segundos</span></h2>
-            <p class="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">Introduce tus datos laborales y obtén una estimación inmediata de lo que te corresponde cobrar al dejar tu empresa.</p>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Calcula tu finiquito <span class="text-brand-600">en segundos</span></h2>
+            <p class="text-gray-500 dark:text-gray-400 dark:text-gray-500 text-sm sm:text-base max-w-xl mx-auto">Introduce tus datos laborales y obtén una estimación inmediata de lo que te corresponde cobrar al dejar tu empresa.</p>
         </section>
 
         <!-- Calculator Card -->
-        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <section class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
             <form id="calculadora" class="p-6 sm:p-8 space-y-6" autocomplete="off" novalidate>
 
                 <!-- Salario Bruto Mensual -->
                 <div>
-                    <label for="salarioBruto" class="block text-sm font-semibold text-gray-700 mb-1">
+                    <label for="salarioBruto" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
                         Salario Bruto Mensual&nbsp;<span class="text-brand-600">(€)</span>
                     </label>
-                    <p class="text-xs text-gray-400 mb-2">Tu salario bruto mensual sin incluir pagas extras (consulta tu nómina).</p>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Tu salario bruto mensual sin incluir pagas extras (consulta tu nómina).</p>
                     <div class="relative">
-                        <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 text-sm">€</span>
+                        <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 dark:text-gray-500 text-sm">€</span>
                         <input
                             type="number"
                             id="salarioBruto"
@@ -137,17 +151,17 @@
                             step="0.01"
                             placeholder="Ej: 1800"
                             required
-                            class="w-full rounded-lg border border-gray-300 pl-8 pr-4 py-3 text-base transition"
+                            class="w-full rounded-lg border border-gray-300 dark:border-gray-600 pl-8 pr-4 py-3 text-base transition dark:bg-gray-700 dark:text-white"
                         >
                     </div>
                 </div>
 
                 <!-- Días trabajados en el mes actual -->
                 <div>
-                    <label for="diasTrabajados" class="block text-sm font-semibold text-gray-700 mb-1">
+                    <label for="diasTrabajados" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
                         Días trabajados en el mes actual
                     </label>
-                    <p class="text-xs text-gray-400 mb-2">Días naturales desde el día 1 del mes hasta tu último día en la empresa.</p>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Días naturales desde el día 1 del mes hasta tu último día en la empresa.</p>
                     <input
                         type="number"
                         id="diasTrabajados"
@@ -157,16 +171,16 @@
                         step="1"
                         placeholder="Ej: 15"
                         required
-                        class="w-full rounded-lg border border-gray-300 px-4 py-3 text-base transition"
+                        class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 text-base transition dark:bg-gray-700 dark:text-white"
                     >
                 </div>
 
                 <!-- Días de vacaciones no disfrutadas -->
                 <div>
-                    <label for="diasVacaciones" class="block text-sm font-semibold text-gray-700 mb-1">
+                    <label for="diasVacaciones" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
                         Días de vacaciones no disfrutadas
                     </label>
-                    <p class="text-xs text-gray-400 mb-2">Días de vacaciones que te corresponden y que aún no has cogido este año.</p>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Días de vacaciones que te corresponden y que aún no has cogido este año.</p>
                     <input
                         type="number"
                         id="diasVacaciones"
@@ -176,20 +190,20 @@
                         step="1"
                         placeholder="Ej: 5"
                         required
-                        class="w-full rounded-lg border border-gray-300 px-4 py-3 text-base transition"
+                        class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 text-base transition dark:bg-gray-700 dark:text-white"
                     >
                 </div>
 
                 <!-- Pagas extras prorrateadas -->
                 <div>
-                    <label for="pagasProrrateadas" class="block text-sm font-semibold text-gray-700 mb-1">
+                    <label for="pagasProrrateadas" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
                         ¿Tus pagas extras están prorrateadas?
                     </label>
-                    <p class="text-xs text-gray-400 mb-2">Si recibes 12 pagas (extra incluida cada mes), selecciona <strong>Sí</strong>. Si recibes 14 pagas al año, selecciona <strong>No</strong>.</p>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mb-2">Si recibes 12 pagas (extra incluida cada mes), selecciona <strong>Sí</strong>. Si recibes 14 pagas al año, selecciona <strong>No</strong>.</p>
                     <select
                         id="pagasProrrateadas"
                         name="pagasProrrateadas"
-                        class="w-full rounded-lg border border-gray-300 px-4 py-3 text-base transition bg-white cursor-pointer"
+                        class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 text-base transition bg-white dark:bg-gray-800 cursor-pointer dark:bg-gray-700 dark:text-white"
                     >
                         <option value="no" selected>No — recibo 14 pagas al año</option>
                         <option value="si">Sí — las pagas están prorrateadas (12 pagas)</option>
@@ -207,8 +221,8 @@
             </form>
 
             <!-- ===== ADSENSE BANNER PLACEHOLDER ===== -->
-            <div id="adsense-banner" class="mx-6 sm:mx-8 mb-6 border-2 border-dashed border-gray-300 rounded-xl py-10 flex items-center justify-center">
-                <p class="text-gray-400 text-sm text-center px-4">Espacio reservado para banner de AdSense (Responsive)</p>
+            <div id="adsense-banner" class="mx-6 sm:mx-8 mb-6 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl py-10 flex items-center justify-center">
+                <p class="text-gray-400 dark:text-gray-500 text-sm text-center px-4">Espacio reservado para banner de AdSense (Responsive)</p>
             </div>
 
             <!-- ===== RESULTADO ===== -->
@@ -222,16 +236,16 @@
                     <!-- Desglose -->
                     <ul class="divide-y divide-brand-100 text-sm sm:text-base">
                         <li class="flex justify-between py-2">
-                            <span class="text-gray-600">Salario días trabajados</span>
-                            <span id="res-salario" class="font-semibold text-gray-900">—</span>
+                            <span class="text-gray-600 dark:text-gray-400 dark:text-gray-500">Salario días trabajados</span>
+                            <span id="res-salario" class="font-semibold text-gray-900 dark:text-white">—</span>
                         </li>
                         <li class="flex justify-between py-2">
-                            <span class="text-gray-600">Vacaciones no disfrutadas</span>
-                            <span id="res-vacaciones" class="font-semibold text-gray-900">—</span>
+                            <span class="text-gray-600 dark:text-gray-400 dark:text-gray-500">Vacaciones no disfrutadas</span>
+                            <span id="res-vacaciones" class="font-semibold text-gray-900 dark:text-white">—</span>
                         </li>
                         <li class="flex justify-between py-2">
-                            <span class="text-gray-600">Parte proporcional pagas extras</span>
-                            <span id="res-pagas" class="font-semibold text-gray-900">—</span>
+                            <span class="text-gray-600 dark:text-gray-400 dark:text-gray-500">Parte proporcional pagas extras</span>
+                            <span id="res-pagas" class="font-semibold text-gray-900 dark:text-white">—</span>
                         </li>
                     </ul>
 
@@ -241,24 +255,24 @@
                         <span id="res-total" class="text-2xl sm:text-3xl font-extrabold text-brand-700">—</span>
                     </div>
 
-                    <p class="text-xs text-gray-500 leading-relaxed">* Este cálculo es una <strong>estimación orientativa</strong>. El importe final puede variar en función del convenio colectivo aplicable, retenciones de IRPF y cotizaciones a la Seguridad Social. Consulta con un profesional laboral para obtener una cifra exacta.</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 leading-relaxed">* Este cálculo es una <strong>estimación orientativa</strong>. El importe final puede variar en función del convenio colectivo aplicable, retenciones de IRPF y cotizaciones a la Seguridad Social. Consulta con un profesional laboral para obtener una cifra exacta.</p>
                 </div>
             </div>
         </section>
 
         <!-- ========== CONTENIDO SEO ========== -->
-        <section id="contenido-seo" class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8">
-            <div class="space-y-8 text-gray-700 leading-relaxed">
+        <section id="contenido-seo" class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
+            <div class="space-y-8 text-gray-700 dark:text-gray-300 leading-relaxed">
                 
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">¿Qué te corresponde cobrar si pides la baja voluntaria?</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">¿Qué te corresponde cobrar si pides la baja voluntaria?</h2>
                     <p class="mb-4">Tomar la decisión de abandonar tu puesto de trabajo y presentar una baja voluntaria (también conocida como dimisión) es un paso importante en la carrera profesional de cualquier trabajador en España. Muchas personas temen que, al ser ellas quienes deciden irse, pierden el derecho a recibir compensación económica. Esto es un mito recurrente, pero completamente falso.</p>
                     <p class="mb-4">Cuando presentas tu renuncia, tienes el derecho irrenunciable a percibir lo que se denomina el <strong>finiquito</strong> o documento de saldo y finiquito. Este documento no es una indemnización por despido, sino la liquidación de las cantidades económicas que la empresa te debe por el trabajo que ya has realizado hasta tu último día efectivo en la compañía.</p>
                     <p>El finiquito busca, en esencia, poner los contadores a cero entre el trabajador y la empresa. Es decir, independientemente del motivo por el que finalice la relación laboral (incluso si te vas por tu propia cuenta para empezar en otra corporación o simplemente para hacer una pausa), la empresa tiene la obligación legal de abonarte cada céntimo que hayas generado y que aún no se te haya ingresado en tu cuenta.</p>
                 </div>
 
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Conceptos que incluye tu finiquito</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Conceptos que incluye tu finiquito</h2>
                     <p class="mb-4">Para asegurarte de que tu empleador te está pagando lo correcto, es fundamental entender cómo se desglosa este abono. Todo finiquito por baja voluntaria debe incluir, como mínimo, los siguientes tres conceptos básicos:</p>
                     <ul class="list-disc pl-6 space-y-3">
                         <li><strong>Días trabajados del mes actual:</strong> Si tu último día en la empresa es el día 14 del mes, la empresa no te pagará la nómina completa a final de mes, sino que debe incluir en tu finiquito el salario correspondiente estrictamente a esos 14 días trabajados. Esto abarca tu salario base y cualquier plus salarial que percibas de manera habitual (transporte, antigüedad, turnicidad, etc.).</li>
@@ -268,35 +282,35 @@
                 </div>
 
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Preaviso legal: ¿Cuántos días son y qué pasa si no cumples?</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Preaviso legal: ¿Cuántos días son y qué pasa si no cumples?</h2>
                     <p class="mb-4">Uno de los errores más comunes al tramitar una dimisión es olvidar el periodo de preaviso. En España, la ley exige que el trabajador comunique su intención de abandonar la empresa con cierta antelación para que esta pueda buscar un relevo. Por norma general y costumbre, se habla de <strong>15 días de preaviso</strong>, pero la realidad es que el plazo exacto viene dictaminado por tu Convenio Colectivo o por tu propio contrato de trabajo (si este mejora o amplía lo que dice el convenio). En algunos perfiles técnicos, cargos intermedios o directivos, este preaviso puede extenderse de 1 a 3 meses.</p>
                     <p class="mb-4"><strong>¿Qué ocurre si decides irte de un día para otro y no cumples con este plazo?</strong> La empresa tiene el derecho de penalizarte económicamente. Esta penalización se aplica de forma directa restando dinero de tu finiquito. La regla general es que la empresa te descontará el salario base de un día por cada día de preaviso que hayas incumplido.</p>
                     <p>Por ejemplo, si tu convenio estipula dar 15 días de preaviso y solo avisas con 5 días de margen, estás incumpliendo 10 días. La empresa restará de tu liquidación el equivalente a 10 días de tu sueldo. En algunos Convenios Colectivos, la penalización es aún más severa, pudiendo descontar hasta 2 días de salario por cada día de preaviso omitido. Por ello, si quieres cobrar tu finiquito íntegro, es absolutamente vital presentar tu carta de baja voluntaria respetando los plazos establecidos.</p>
                 </div>
 
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">¿Tengo derecho a paro si me voy voluntariamente?</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">¿Tengo derecho a paro si me voy voluntariamente?</h2>
                     <p class="mb-4">La respuesta corta y directa es <strong>NO</strong>. Cuando presentas una baja voluntaria de forma unilateral y ordinaria, no tienes derecho a cobrar la prestación por desempleo (conocida popularmente como el paro) de manera inmediata.</p>
                     <p class="mb-4">Para que el SEPE (Servicio Público de Empleo Estatal) te conceda la prestación, exige que te encuentres en lo que se denomina "situación legal de desempleo". Esto significa que la pérdida del trabajo debe ser ajena a tu voluntad, como ocurre en el caso de un despido objetivo, disciplinario, la finalización de un contrato temporal, o un ERE.</p>
                     <p>Sin embargo, existen unos <strong>matices legales y excepciones</strong> muy concretos (recogidos en el artículo 50 del Estatuto de los Trabajadores) donde sí podrías cobrar el paro tras propiciar tu propia salida. Esto se conoce como "extinción causal" o dimisión justificada, y aplica solo en casos graves como: impago continuado o retrasos prolongados en tus nóminas, modificaciones sustanciales de tus condiciones de trabajo que menoscaben tu dignidad (como cambios de turno drásticos no justificados o traslados geográficos forzosos), o si te ves obligado a abandonar el puesto por ser víctima de violencia de género. Salvo estas raras excepciones, que casi siempre requieren mediación y sentencia judicial, una dimisión normal te deja sin acceso al paro, aunque lo que tengas acumulado y cotizado se guardará para cuando vuelvas a trabajar y sufras un cese que sí sea involuntario.</p>
                 </div>
 
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Preguntas Frecuentes</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Preguntas Frecuentes</h2>
                     <div class="space-y-6">
-                        <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">1. ¿Cuándo me tienen que pagar el finiquito?</h3>
-                            <p class="text-gray-700">La normativa laboral establece que la empresa debe poner a tu disposición el documento de saldo y finiquito, junto con el abono del dinero, el mismo día que se hace efectiva la finalización de tu contrato (tu último día de trabajo en la oficina). Sin embargo, en la práctica habitual y por logística contable, la mayoría de empresas realizan la transferencia en la fecha normal de pago de nóminas (entre el día 1 y 5 del mes siguiente). Si la demora se prolonga de forma injustificada más allá de esas fechas, podrías llegar a reclamar intereses por mora.</p>
+                        <div class="bg-gray-50 dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-700">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">1. ¿Cuándo me tienen que pagar el finiquito?</h3>
+                            <p class="text-gray-700 dark:text-gray-300">La normativa laboral establece que la empresa debe poner a tu disposición el documento de saldo y finiquito, junto con el abono del dinero, el mismo día que se hace efectiva la finalización de tu contrato (tu último día de trabajo en la oficina). Sin embargo, en la práctica habitual y por logística contable, la mayoría de empresas realizan la transferencia en la fecha normal de pago de nóminas (entre el día 1 y 5 del mes siguiente). Si la demora se prolonga de forma injustificada más allá de esas fechas, podrías llegar a reclamar intereses por mora.</p>
                         </div>
                         
-                        <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">2. ¿Qué pasa si la empresa se niega a firmar o pagar el finiquito?</h3>
-                            <p class="text-gray-700">Si el departamento de Recursos Humanos te presenta el documento de finiquito pero no estás de acuerdo con los cálculos (o si te lo entregan pero no te han ingresado aún el dinero en el banco), es crucial que al firmarlo escribas de tu puño y letra la fórmula <strong>"No conforme"</strong>, seguido de la fecha actual y tu firma. Esto te permite llevarte la documentación sin cerrar la vía legal para reclamar. Si la empresa directamente no te paga, dispones de un plazo máximo de un año (1 año) para interponer una Papeleta de Conciliación ante el SMAC y reclamar judicialmente la deuda.</p>
+                        <div class="bg-gray-50 dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-700">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">2. ¿Qué pasa si la empresa se niega a firmar o pagar el finiquito?</h3>
+                            <p class="text-gray-700 dark:text-gray-300">Si el departamento de Recursos Humanos te presenta el documento de finiquito pero no estás de acuerdo con los cálculos (o si te lo entregan pero no te han ingresado aún el dinero en el banco), es crucial que al firmarlo escribas de tu puño y letra la fórmula <strong>"No conforme"</strong>, seguido de la fecha actual y tu firma. Esto te permite llevarte la documentación sin cerrar la vía legal para reclamar. Si la empresa directamente no te paga, dispones de un plazo máximo de un año (1 año) para interponer una Papeleta de Conciliación ante el SMAC y reclamar judicialmente la deuda.</p>
                         </div>
                         
-                        <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">3. ¿Me corresponde algún tipo de indemnización por dejar mi trabajo?</h3>
-                            <p class="text-gray-700">No. En el ámbito del derecho laboral español, es sumamente importante no confundir el finiquito con la indemnización. El finiquito es simplemente la liquidación de salarios y vacaciones que ya has trabajado y te corresponde el 100% de las veces. La indemnización, en cambio, es una compensación económica (que puede ser de 20, 33 o más días por año trabajado) que la empresa te abona como "penalización" por decidir despedirte. Al ser tú quien toma la decisión unilateral de romper el contrato de forma libre mediante la baja voluntaria, renuncias legalmente a cualquier tipo de indemnización por cese.</p>
+                        <div class="bg-gray-50 dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-700">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">3. ¿Me corresponde algún tipo de indemnización por dejar mi trabajo?</h3>
+                            <p class="text-gray-700 dark:text-gray-300">No. En el ámbito del derecho laboral español, es sumamente importante no confundir el finiquito con la indemnización. El finiquito es simplemente la liquidación de salarios y vacaciones que ya has trabajado y te corresponde el 100% de las veces. La indemnización, en cambio, es una compensación económica (que puede ser de 20, 33 o más días por año trabajado) que la empresa te abona como "penalización" por decidir despedirte. Al ser tú quien toma la decisión unilateral de romper el contrato de forma libre mediante la baja voluntaria, renuncias legalmente a cualquier tipo de indemnización por cese.</p>
                         </div>
                     </div>
                 </div>
@@ -307,8 +321,8 @@
     </main>
 
     <!-- ========== FOOTER ========== -->
-    <footer class="border-t border-gray-200 bg-white mt-auto">
-        <div class="max-w-3xl mx-auto px-4 py-6 text-center text-xs text-gray-400 space-y-1">
+    <footer class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 mt-auto">
+        <div class="max-w-3xl mx-auto px-4 py-6 text-center text-xs text-gray-400 dark:text-gray-500 space-y-1">
             <p>&copy; <span id="footer-year"></span> Calculadora de Finiquito España — Herramienta gratuita de estimación.</p>
             <p>Esta herramienta no constituye asesoramiento legal ni laboral.</p>
         </div>
@@ -459,6 +473,30 @@
                 mobileMenu.style.opacity   = isOpen ? '1' : '0';
                 iconOpen.classList.toggle('hidden', isOpen);
                 iconClose.classList.toggle('hidden', !isOpen);
+            });
+        }
+    
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            lightIcon.classList.remove('hidden');
+        } else {
+            darkIcon.classList.remove('hidden');
+        }
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', function() {
+                darkIcon.classList.toggle('hidden');
+                lightIcon.classList.toggle('hidden');
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
             });
         }
     })();
