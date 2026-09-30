@@ -428,9 +428,9 @@
             const base = Number(baseInput.value);
             const months = Number(monthsInput.value);
             const children = Number(childrenInput.value);
-            const valid = Number.isFinite(base) && base > 0 && Number.isInteger(months) && months >= 0 && months <= 72 && [0,1,2].includes(children);
+            const valid = Number.isFinite(base) && base > 0 && monthsInput.value.trim() !== '' && Number.isInteger(months) && months >= 0 && months <= 72 && [0,1,2].includes(children);
             baseInput.setCustomValidity(Number.isFinite(base) && base > 0 ? '' : 'Introduce una base reguladora mayor que cero.');
-            monthsInput.setCustomValidity(Number.isInteger(months) && months >= 0 && months <= 72 ? '' : 'Introduce entre 0 y 72 meses cotizados.');
+            monthsInput.setCustomValidity(monthsInput.value.trim() !== '' && Number.isInteger(months) && months >= 0 && months <= 72 ? '' : 'Introduce entre 0 y 72 meses cotizados.');
             if (!valid) { form.reportValidity(); return; }
             if (months < 12) {
                 result.classList.add('hidden');

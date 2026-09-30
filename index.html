@@ -395,13 +395,14 @@
         function calcular() {
             const salarioBruto    = val(inputSalario);
             const diasTrabajados  = val(inputDias);
-            const diasVacaciones  = val(inputVacaciones);
+            const rawVacaciones  = inputVacaciones.value.trim();
+            const diasVacaciones = Number(rawVacaciones);
             const prorrateadas    = selectPagas.value === 'si';
 
             let valid = true;
             if (salarioBruto <= 0) { setError(inputSalario, true); valid = false; } else setError(inputSalario, false);
             if (diasTrabajados <= 0 || diasTrabajados > 31) { setError(inputDias, true); valid = false; } else setError(inputDias, false);
-            if (diasVacaciones < 0) { setError(inputVacaciones, true); valid = false; } else setError(inputVacaciones, false);
+            if (rawVacaciones === '' || !Number.isFinite(diasVacaciones) || diasVacaciones < 0 || diasVacaciones > 365) { setError(inputVacaciones, true); valid = false; } else setError(inputVacaciones, false);
             if (!valid) { panelResultado.classList.add('hidden'); return; }
 
             const salarioDiario = salarioBruto / DIAS_MES;
