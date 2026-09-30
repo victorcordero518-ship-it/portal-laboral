@@ -1,0 +1,166 @@
+﻿import os
+
+html_template = """<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviso Legal y Privacidad — Portal Laboral</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef7ff', 100: '#d9edff', 200: '#bce0ff',
+                            300: '#8ecdff', 400: '#59b0ff', 500: '#338dff',
+                            600: '#1a6df5', 700: '#1357e1', 800: '#1646b6',
+                            900: '#183e8f', 950: '#132757',
+                        }
+                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        #mobile-menu { transition: max-height 0.3s ease, opacity 0.3s ease; max-height: 0; opacity: 0; overflow: hidden; }
+        @media print { header, nav, footer { display: none; } }
+    </style>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans antialiased min-h-screen flex flex-col">
+
+    <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0">
+                    <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center shadow-sm">
+                        <svg class="w-4.5 h-4.5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21" />
+                        </svg>
+                    </div>
+                    <span class="text-lg font-bold text-gray-900 dark:text-white hidden sm:inline">Portal Laboral</span>
+                </a>
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Finiquito</a>
+                    <a href="sueldo-neto.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Sueldo Neto</a>
+                    <a href="paro.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Calculadora de Paro</a>
+                </nav>
+
+                <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm p-2 transition md:ml-2">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-6 h-6 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+                <button id="menu-toggle" class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition" aria-label="Abrir menú">
+                    <svg id="icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+                    <svg id="icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="md:hidden pb-3" style="max-height:0;opacity:0;overflow:hidden;">
+                <nav class="flex flex-col gap-1">
+                    <a href="index.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Calculadora de Finiquito</a>
+                    <a href="sueldo-neto.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Sueldo Bruto a Neto</a>
+                    <a href="paro.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Calculadora de Paro</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-8 space-y-8">
+        <section class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8 text-gray-700 dark:text-gray-300">
+            
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Aviso Legal</h2>
+            <p class="mb-6">En cumplimiento de la Ley 34/2002 de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), informamos que Portal Laboral es una herramienta orientativa y gratuita. Los cálculos proporcionados por nuestras herramientas son estimaciones basadas en normativas vigentes en España y no constituyen asesoramiento legal, fiscal ni laboral profesional. Nos eximimos de cualquier responsabilidad derivada del uso de las cifras obtenidas en esta web.</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Política de Privacidad</h2>
+            <p class="mb-6">Portal Laboral respeta la privacidad de sus usuarios. No almacenamos, procesamos ni enviamos a servidores externos ningún tipo de dato introducido en nuestras calculadoras; todas las operaciones matemáticas se realizan localmente en tu navegador. Únicamente utilizamos el almacenamiento local (localStorage) de tu navegador para recordar tu preferencia visual (Modo Claro / Oscuro).</p>
+
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Política de Cookies</h2>
+            <p>Utilizamos cookies propias puramente técnicas para recordar tus preferencias (como el modo oscuro) y cookies de terceros, concretamente de Google AdSense, para mostrar anuncios relevantes que nos permiten mantener el servicio gratuito. Google y sus socios utilizan cookies para publicar anuncios basados en tus visitas anteriores a nuestra web o a otros sitios de internet. Puedes inhabilitar la publicidad personalizada en los Ajustes de Anuncios de Google.</p>
+
+        </section>
+    </main>
+
+    <footer class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 mt-auto">
+        <div class="max-w-4xl mx-auto px-4 py-6 text-center text-xs text-gray-400 dark:text-gray-500 space-y-1">
+            <p>&copy; <span id="footer-year">2026</span> Portal Laboral — Herramientas gratuitas de estimación laboral para España.</p>
+            <p>Esta herramienta no constituye asesoramiento legal ni laboral. <a href="legales.html" class="underline hover:text-gray-600 dark:hover:text-gray-300">Aviso Legal y Privacidad</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+        
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('icon-open');
+        const iconClose = document.getElementById('icon-close');
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                const isOpen = mobileMenu.style.maxHeight === '0px' || mobileMenu.style.maxHeight === '';
+                mobileMenu.style.maxHeight = isOpen ? '300px' : '0px';
+                mobileMenu.style.opacity = isOpen ? '1' : '0';
+                iconOpen.classList.toggle('hidden', isOpen);
+                iconClose.classList.toggle('hidden', !isOpen);
+            });
+        }
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            lightIcon.classList.remove('hidden');
+        } else {
+            darkIcon.classList.remove('hidden');
+        }
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', function() {
+                darkIcon.classList.toggle('hidden');
+                lightIcon.classList.toggle('hidden');
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        }
+    </script>
+</body>
+</html>"""
+
+with open("legales.html", "w", encoding="utf-8") as f:
+    f.write(html_template)
+
+files = ["index.html", "sueldo-neto.html", "paro.html"]
+footer_link = ' <a href="legales.html" class="underline hover:text-gray-600 dark:hover:text-gray-300">Aviso Legal y Privacidad</a>'
+
+for file in files:
+    with open(file, "r", encoding="utf-8") as f:
+        content = f.read()
+    
+    if "legales.html" not in content:
+        content = content.replace(
+            "Esta herramienta no constituye asesoramiento legal, fiscal ni laboral.</p>",
+            f"Esta herramienta no constituye asesoramiento legal, fiscal ni laboral.{footer_link}</p>"
+        )
+        content = content.replace(
+            "Esta herramienta no constituye asesoramiento legal ni laboral.</p>",
+            f"Esta herramienta no constituye asesoramiento legal ni laboral.{footer_link}</p>"
+        )
+        
+        with open(file, "w", encoding="utf-8") as f:
+            f.write(content)
