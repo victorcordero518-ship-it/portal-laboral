@@ -100,9 +100,9 @@
 
                 <!-- Desktop Nav -->
                 <nav aria-label="Principal" class="hidden lg:flex items-center gap-1">
-                    <a href="index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition" aria-current="page">Inicio</a>
-                    <a href="#calculadoras" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Calculadoras</a>
-                    <a href="#contenido-seo" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Guías</a>
+                    <a href="index.html" data-home-nav class="px-3 py-2 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition" aria-current="page">Inicio</a>
+                    <a href="#calculadoras" data-section-nav="calculadoras" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Calculadoras</a>
+                    <a href="#contenido-seo" data-section-nav="contenido-seo" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Guías</a>
                     <a href="sobre-nosotros/index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Sobre nosotros</a>
                     <a href="contacto/index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-brand-700 hover:bg-brand-50 dark:hover:bg-gray-800 transition">Contacto</a>
                 </nav>
@@ -123,9 +123,9 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="lg:hidden pb-3" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .3s ease,opacity .3s ease">
                 <nav aria-label="Principal en móvil" class="flex flex-col gap-1">
-                    <a href="index.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition" aria-current="page">Inicio</a>
-                    <a href="#calculadoras" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Calculadoras</a>
-                    <a href="#contenido-seo" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Guías</a>
+                    <a href="index.html" data-home-nav class="px-3 py-2.5 rounded-lg text-sm font-medium text-brand-700 bg-brand-50 border border-brand-200 transition" aria-current="page">Inicio</a>
+                    <a href="#calculadoras" data-section-nav="calculadoras" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Calculadoras</a>
+                    <a href="#contenido-seo" data-section-nav="contenido-seo" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Guías</a>
                     <a href="sobre-nosotros/index.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Sobre nosotros</a>
                     <a href="contacto/index.html" class="px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Contacto</a>
                 </nav>
@@ -466,6 +466,40 @@
                 }
             });
         }
+
+        const homeLinks = document.querySelectorAll('[data-home-nav]');
+        const sectionLinks = document.querySelectorAll('[data-section-nav]');
+        const activeClasses = ['text-brand-700', 'bg-brand-50', 'border', 'border-brand-200'];
+        const inactiveTextClasses = ['text-gray-600', 'dark:text-gray-400'];
+
+        function setActiveNavigation(section) {
+            homeLinks.forEach((link) => {
+                const active = !section;
+                activeClasses.forEach((name) => link.classList.toggle(name, active));
+                inactiveTextClasses.forEach((name) => link.classList.toggle(name, !active));
+                if (active) link.setAttribute('aria-current', 'page');
+                else link.removeAttribute('aria-current');
+            });
+
+            sectionLinks.forEach((link) => {
+                const active = link.dataset.sectionNav === section;
+                activeClasses.forEach((name) => link.classList.toggle(name, active));
+                inactiveTextClasses.forEach((name) => link.classList.toggle(name, !active));
+                if (active) link.setAttribute('aria-current', 'location');
+                else link.removeAttribute('aria-current');
+            });
+        }
+
+        function updateActiveNavigationFromHash() {
+            const hash = window.location.hash;
+            setActiveNavigation(hash === '#contenido-seo' ? 'contenido-seo' : ['#calculadoras', '#calculadora'].includes(hash) ? 'calculadoras' : '');
+        }
+
+        sectionLinks.forEach((link) => {
+            link.addEventListener('click', () => setActiveNavigation(link.dataset.sectionNav));
+        });
+        window.addEventListener('hashchange', updateActiveNavigationFromHash);
+        updateActiveNavigationFromHash();
     })();
     </script>
 </body>
