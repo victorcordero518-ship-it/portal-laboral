@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviso Legal y Privacidad — Portal Laboral</title>
+    <meta name="description" content="Aviso legal, política de privacidad y política de cookies de Portal Laboral.">
+    <meta name="robots" content="index, follow">
+    <title>Aviso Legal y Privacidad | Portal Laboral</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -76,8 +78,8 @@
 
     <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-8 space-y-8">
         <section class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8 text-gray-700 dark:text-gray-300">
-            
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Aviso Legal</h2>
+
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Aviso Legal</h1>
             <p class="mb-6">En cumplimiento de la Ley 34/2002 de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), informamos que Portal Laboral es una herramienta orientativa y gratuita. Los cálculos proporcionados por nuestras herramientas son estimaciones basadas en normativas vigentes en España y no constituyen asesoramiento legal, fiscal ni laboral profesional. Nos eximimos de cualquier responsabilidad derivada del uso de las cifras obtenidas en esta web.</p>
 
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Política de Privacidad</h2>
@@ -98,7 +100,7 @@
 
     <script>
         document.getElementById('footer-year').textContent = new Date().getFullYear();
-        
+
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const iconOpen = document.getElementById('icon-open');
@@ -116,7 +118,7 @@
         const themeToggleBtn = document.getElementById('theme-toggle');
         const darkIcon = document.getElementById('theme-toggle-dark-icon');
         const lightIcon = document.getElementById('theme-toggle-light-icon');
-        
+
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             lightIcon.classList.remove('hidden');
         } else {

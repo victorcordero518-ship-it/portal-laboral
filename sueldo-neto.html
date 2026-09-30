@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Sueldo Neto a Bruto (España 2026)</title>
+    <meta name="description" content="Estima tu sueldo neto anual y por paga en España a partir del salario bruto.">
+    <meta name="robots" content="index, follow">
+    <title>Calculadora de Sueldo Neto en España | Portal Laboral</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -94,10 +96,10 @@
     </header>
 
     <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-8 space-y-10">
-        
+
         <section class="text-center space-y-2">
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Calcula tu <span class="text-brand-600">Sueldo Neto</span></h2>
-            <p class="text-gray-500 dark:text-gray-400 dark:text-gray-500 text-sm sm:text-base">Descubre cuánto dinero exacto llegará a tu cuenta a final de mes tras aplicar el IRPF y las cotizaciones de 2026.</p>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Calcula tu <span class="text-brand-600">Sueldo Neto</span></h1>
+            <p class="text-gray-500 dark:text-gray-400 dark:text-gray-500 text-sm sm:text-base">Obtén una estimación orientativa de tu sueldo neto a partir del salario bruto y el número de pagas.</p>
         </section>
 
         <!-- Calculadora -->
@@ -107,7 +109,7 @@
                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Salario Bruto Anual (€)</label>
                     <input type="number" id="brutoAnual" required placeholder="Ej: 24000" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400">
                 </div>
-                
+
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Número de pagas</label>
@@ -115,10 +117,6 @@
                             <option value="12">12 pagas (Prorrateadas)</option>
                             <option value="14" selected>14 pagas</option>
                         </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Edad</label>
-                        <input type="number" id="edad" required value="30" class="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 outline-none dark:bg-gray-700 dark:text-white dark:placeholder-gray-400">
                     </div>
                 </div>
 
@@ -137,7 +135,7 @@
                 <h3 class="text-lg font-bold text-brand-900 mb-4 text-center">Tu Nómina Estimada</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <div class="bg-white dark:bg-gray-800 rounded-xl p-4 text-center shadow-sm">
-                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase">Sueldo Neto Mensual</p>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase">Neto por paga</p>
                         <p id="res-mensual" class="text-3xl font-extrabold text-brand-700 mt-1">0,00 €</p>
                     </div>
                     <div class="bg-white dark:bg-gray-800 rounded-xl p-4 text-center shadow-sm">
@@ -147,9 +145,10 @@
                 </div>
                 <div class="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-500 bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm space-y-2">
                     <div class="flex justify-between border-b pb-1"><span>Salario Bruto Anual:</span> <strong id="res-bruto">0 €</strong></div>
-                    <div class="flex justify-between border-b pb-1 text-red-600"><span>Retención IRPF est.:</span> <strong id="res-irpf">0 €</strong></div>
+                    <div class="flex justify-between border-b pb-1 text-red-600"><span>IRPF estimado:</span> <strong id="res-irpf">0 €</strong></div>
                     <div class="flex justify-between text-red-600"><span>Seguridad Social (incl. MEI):</span> <strong id="res-ss">0 €</strong></div>
                 </div>
+                <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">Estimación simplificada para un contrato indefinido. No contempla circunstancias personales o autonómicas ni la cotización adicional de solidaridad. La retención real puede variar; consulta el servicio de cálculo de la AEAT.</p>
             </div>
         </section>
 
@@ -161,14 +160,14 @@
                 <p class="mb-4 text-gray-700 dark:text-gray-300">Por un lado, el <strong>sueldo bruto</strong> es la cantidad total de dinero que la empresa te paga por tu trabajo antes de aplicar cualquier tipo de retención. Es la "cifra grande" que aparece en las ofertas de empleo (por ejemplo, 24.000 euros anuales). Sin embargo, este no es el dinero que podrás gastar.</p>
                 <p class="text-gray-700 dark:text-gray-300">Por otro lado, el <strong>sueldo neto</strong> es el dinero real que ingresa en tu cuenta bancaria a final de mes. Es el resultado directo de restar al salario bruto inicial todas las obligaciones fiscales: las cotizaciones a la Seguridad Social y las retenciones a cuenta del IRPF.</p>
             </div>
-            
+
             <div class="mb-8">
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">¿Qué me descuentan de la nómina en 2026?</h2>
                 <ul class="list-disc pl-6 space-y-3 text-gray-700 dark:text-gray-300">
                     <li><strong>Impuesto sobre la Renta (IRPF):</strong> Es un adelanto que haces a Hacienda mes a mes sobre el impuesto de la Declaración de la Renta. Es progresivo: cuanto más ganas, mayor es el porcentaje.</li>
                     <li><strong>Seguridad Social (Contingencias Comunes):</strong> El 4,70% se destina a cubrir bajas médicas y conformar tu futura pensión.</li>
                     <li><strong>Desempleo y Formación Profesional:</strong> Un 1,55% (paro) y un 0,10% (formación) para garantizar tus prestaciones.</li>
-                    <li><strong>Mecanismo de Equidad Intergeneracional (MEI):</strong> Un descuento del 0,12% para rellenar la "hucha de las pensiones".</li>
+                    <li><strong>Mecanismo de Equidad Intergeneracional (MEI):</strong> En 2026, la aportación del trabajador es del 0,15%.</li>
                 </ul>
             </div>
 
@@ -194,7 +193,7 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const iconOpen = document.getElementById('icon-open');
         const iconClose = document.getElementById('icon-close');
-        
+
         if (menuToggle && mobileMenu) {
             menuToggle.addEventListener('click', () => {
                 const isOpen = mobileMenu.classList.toggle('open');
@@ -204,31 +203,42 @@
         }
 
         function calcularSueldo() {
-            const bruto = parseFloat(document.getElementById('brutoAnual').value);
-            const pagas = parseInt(document.getElementById('pagas').value);
-            
-            if (!bruto || bruto <= 0) return;
+            const bruto = Number(document.getElementById('brutoAnual').value);
+            const pagas = Number(document.getElementById('pagas').value);
+            if (!Number.isFinite(bruto) || bruto <= 0 || ![12, 14].includes(pagas)) return;
 
-            const cuotaSS = bruto * 0.0647; 
-            
-            let irpf = 0;
-            if(bruto <= 12450) irpf = bruto * 0.10; 
-            else if(bruto <= 20200) irpf = bruto * 0.14;
-            else if(bruto <= 35200) irpf = bruto * 0.18;
-            else if(bruto <= 60000) irpf = bruto * 0.23;
-            else irpf = bruto * 0.30;
-
-            const totalNetoAnual = bruto - cuotaSS - irpf;
-            const netoMensual = totalNetoAnual / pagas;
-
-            const format = (num) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(num);
-
-            document.getElementById('res-bruto').innerText = format(bruto);
-            document.getElementById('res-ss').innerText = format(cuotaSS);
-            document.getElementById('res-irpf').innerText = format(irpf);
-            document.getElementById('res-anual').innerText = format(totalNetoAnual);
-            document.getElementById('res-mensual').innerText = format(netoMensual);
-
+            // Estimación simplificada 2026: contingencias del trabajador con contrato indefinido.
+            const baseCotizacion = Math.min(bruto, 5101.20 * 12);
+            const cuotaSS = baseCotizacion * 0.065; // 4,70% comunes + 1,55% desempleo + 0,10% FP + 0,15% MEI
+            const baseImponibleEstimada = Math.max(0, bruto - cuotaSS - 2000);
+            const tramos = [
+                { limite: 12450, tipo: 0.19 },
+                { limite: 20200, tipo: 0.24 },
+                { limite: 35200, tipo: 0.30 },
+                { limite: 60000, tipo: 0.37 },
+                { limite: 300000, tipo: 0.45 },
+                { limite: Infinity, tipo: 0.47 }
+            ];
+            function cuotaProgresiva(base) {
+                let cuota = 0, anterior = 0;
+                for (const tramo of tramos) {
+                    const importe = Math.max(0, Math.min(base, tramo.limite) - anterior);
+                    cuota += importe * tramo.tipo;
+                    anterior = tramo.limite;
+                    if (base <= tramo.limite) break;
+                }
+                return cuota;
+            }
+            // Aproxima el mínimo personal general; no sustituye al algoritmo de retenciones de la AEAT.
+            const irpf = Math.max(0, cuotaProgresiva(baseImponibleEstimada) - cuotaProgresiva(5550));
+            const netoAnual = Math.max(0, bruto - cuotaSS - irpf);
+            const netoPorPaga = netoAnual / pagas;
+            const format = value => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(value);
+            document.getElementById('res-bruto').textContent = format(bruto);
+            document.getElementById('res-ss').textContent = format(cuotaSS);
+            document.getElementById('res-irpf').textContent = format(irpf);
+            document.getElementById('res-anual').textContent = format(netoAnual);
+            document.getElementById('res-mensual').textContent = format(netoPorPaga);
             const panel = document.getElementById('resultado-panel');
             panel.classList.remove('hidden');
             setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
@@ -237,7 +247,7 @@
         const themeToggleBtn = document.getElementById('theme-toggle');
         const darkIcon = document.getElementById('theme-toggle-dark-icon');
         const lightIcon = document.getElementById('theme-toggle-light-icon');
-        
+
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             if (lightIcon) lightIcon.classList.remove('hidden');
         } else {

@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Finiquito por Baja Voluntaria (España) — Calcula tu finiquito gratis</title>
-    <meta name="description" content="Calcula tu finiquito por baja voluntaria en España de forma rápida y gratuita. Incluye salario proporcional, vacaciones no disfrutadas y pagas extras.">
+    <meta name="description" content="Calcula una estimación de tu finiquito por baja voluntaria en España: salario pendiente, vacaciones no disfrutadas y pagas extra.">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="">
+    <title>Calculadora de Finiquito en España | Portal Laboral</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -135,7 +134,7 @@
 
         <!-- Intro -->
         <section class="text-center space-y-2">
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Calcula tu finiquito <span class="text-brand-600">en segundos</span></h2>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Calcula tu finiquito <span class="text-brand-600">en segundos</span></h1>
             <p class="text-gray-500 dark:text-gray-400 dark:text-gray-500 text-sm sm:text-base max-w-xl mx-auto">Introduce tus datos laborales y obtén una estimación inmediata de lo que te corresponde cobrar al dejar tu empresa.</p>
         </section>
 
@@ -271,7 +270,7 @@
         <!-- ========== CONTENIDO SEO ========== -->
         <section id="contenido-seo" class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
             <div class="space-y-8 text-gray-700 dark:text-gray-300 leading-relaxed">
-                
+
                 <div>
                     <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">¿Qué te corresponde cobrar si pides la baja voluntaria?</h2>
                     <p class="mb-4">Tomar la decisión de abandonar tu puesto de trabajo y presentar una baja voluntaria (también conocida como dimisión) es un paso importante en la carrera profesional de cualquier trabajador en España. Muchas personas temen que, al ser ellas quienes deciden irse, pierden el derecho a recibir compensación económica. Esto es un mito recurrente, pero completamente falso.</p>
@@ -310,12 +309,12 @@
                             <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">1. ¿Cuándo me tienen que pagar el finiquito?</h3>
                             <p class="text-gray-700 dark:text-gray-300">La normativa laboral establece que la empresa debe poner a tu disposición el documento de saldo y finiquito, junto con el abono del dinero, el mismo día que se hace efectiva la finalización de tu contrato (tu último día de trabajo en la oficina). Sin embargo, en la práctica habitual y por logística contable, la mayoría de empresas realizan la transferencia en la fecha normal de pago de nóminas (entre el día 1 y 5 del mes siguiente). Si la demora se prolonga de forma injustificada más allá de esas fechas, podrías llegar a reclamar intereses por mora.</p>
                         </div>
-                        
+
                         <div class="bg-gray-50 dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-700">
                             <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">2. ¿Qué pasa si la empresa se niega a firmar o pagar el finiquito?</h3>
                             <p class="text-gray-700 dark:text-gray-300">Si el departamento de Recursos Humanos te presenta el documento de finiquito pero no estás de acuerdo con los cálculos (o si te lo entregan pero no te han ingresado aún el dinero en el banco), es crucial que al firmarlo escribas de tu puño y letra la fórmula <strong>"No conforme"</strong>, seguido de la fecha actual y tu firma. Esto te permite llevarte la documentación sin cerrar la vía legal para reclamar. Si la empresa directamente no te paga, dispones de un plazo máximo de un año (1 año) para interponer una Papeleta de Conciliación ante el SMAC y reclamar judicialmente la deuda.</p>
                         </div>
-                        
+
                         <div class="bg-gray-50 dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-700">
                             <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">3. ¿Me corresponde algún tipo de indemnización por dejar mi trabajo?</h3>
                             <p class="text-gray-700 dark:text-gray-300">No. En el ámbito del derecho laboral español, es sumamente importante no confundir el finiquito con la indemnización. El finiquito es simplemente la liquidación de salarios y vacaciones que ya has trabajado y te corresponde el 100% de las veces. La indemnización, en cambio, es una compensación económica (que puede ser de 20, 33 o más días por año trabajado) que la empresa te abona como "penalización" por decidir despedirte. Al ser tú quien toma la decisión unilateral de romper el contrato de forma libre mediante la baja voluntaria, renuncias legalmente a cualquier tipo de indemnización por cese.</p>
@@ -391,7 +390,7 @@
             const salarioDiario = salarioBruto / DIAS_MES;
             const importeSalario = salarioDiario * diasTrabajados;
             const importeVacaciones = salarioDiario * diasVacaciones;
-            
+
             let importePagas = 0;
             if (!prorrateadas) importePagas = (salarioBruto * 2 / 360) * diasTrabajados;
 
@@ -407,8 +406,8 @@
         }
 
         if (form) form.addEventListener('submit', (e) => { e.preventDefault(); calcular(); });
-        [inputSalario, inputDias, inputVacaciones].forEach((input) => { 
-            if(input) input.addEventListener('input', () => setError(input, false)); 
+        [inputSalario, inputDias, inputVacaciones].forEach((input) => {
+            if(input) input.addEventListener('input', () => setError(input, false));
         });
 
         const menuToggle = document.getElementById('menu-toggle');
@@ -428,7 +427,7 @@
         const themeToggleBtn = document.getElementById('theme-toggle');
         const darkIcon = document.getElementById('theme-toggle-dark-icon');
         const lightIcon = document.getElementById('theme-toggle-light-icon');
-        
+
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             if (lightIcon) lightIcon.classList.remove('hidden');
         } else {
@@ -452,5 +451,3 @@
     </script>
 </body>
 </html>
-< ! - -   u p d a t e   - - >  
- 
